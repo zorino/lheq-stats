@@ -160,8 +160,6 @@ class TeamDetailPage {
         const gfEl = document.getElementById('team-gf');
         const gaEl = document.getElementById('team-ga');
         const diffEl = document.getElementById('team-diff');
-        const ppEl = document.getElementById('team-pp');
-        const pkEl = document.getElementById('team-pk');
 
         if (gpEl) gpEl.textContent = this.teamData.games_played || 0;
         if (gfEl) gfEl.textContent = this.teamData.goals_for || 0;
@@ -171,21 +169,6 @@ class TeamDetailPage {
             const diff = (this.teamData.goals_for || 0) - (this.teamData.goals_against || 0);
             diffEl.textContent = diff > 0 ? `+${diff}` : diff.toString();
             diffEl.className = `stat-value ${diff >= 0 ? 'positive' : 'negative'}`;
-        }
-
-        // Special teams percentages
-        if (ppEl) {
-            const totalPPOpportunities = (this.teamData.powerplay_goals_for || 0) + (this.teamData.powerplay_goals_against || 0);
-            const ppPercent = totalPPOpportunities > 0 ?
-                ((this.teamData.powerplay_goals_for || 0) / totalPPOpportunities * 100).toFixed(1) + '%' : '0.0%';
-            ppEl.textContent = ppPercent;
-        }
-
-        if (pkEl) {
-            const totalPPOpportunities = (this.teamData.powerplay_goals_for || 0) + (this.teamData.powerplay_goals_against || 0);
-            const pkPercent = totalPPOpportunities > 0 ?
-                ((totalPPOpportunities - (this.teamData.powerplay_goals_against || 0)) / totalPPOpportunities * 100).toFixed(1) + '%' : '0.0%';
-            pkEl.textContent = pkPercent;
         }
 
         // Set records
@@ -201,6 +184,15 @@ class TeamDetailPage {
         }
         if (pimEl) {
             pimEl.textContent = this.teamData.penalty_minutes || 0;
+        }
+
+        // Set PP%
+        const ppEl = document.getElementById('team-pp');
+        if (ppEl) {
+            const ppOpportunities = this.teamData.powerplay_opportunities || 0;
+            const ppPercent = ppOpportunities > 0 ?
+                ((this.teamData.powerplay_goals_for || 0) / ppOpportunities * 100).toFixed(1) + '%' : '0.0%';
+            ppEl.textContent = ppPercent;
         }
     }
 

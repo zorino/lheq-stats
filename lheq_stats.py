@@ -307,6 +307,7 @@ class HockeyStatsCompiler:
                 'penalty_minutes': 0,
                 'powerplay_goals_for': 0,
                 'powerplay_goals_against': 0,
+                'powerplay_opportunities': 0,
                 'shorthanded_goals_for': 0,
                 'shorthanded_goals_against': 0,
                 'home_wins': 0,
@@ -491,6 +492,90 @@ class HockeyStatsCompiler:
                 return positions[0] if positions else 'F'
         return 'F'
 
+    def calculate_powerplay_opportunities(self, game, home_team_id, away_team_id):
+        """
+        Calculate powerplay opportunities for both teams based on penalties
+        Returns dict with PP opportunities for each team
+        """
+        if 'boxscore' not in game or 'penalties' not in game['boxscore']:
+            return {home_team_id: 0, away_team_id: 0}
+
+        penalties = game['boxscore']['penalties']
+        if not penalties:
+            return {home_team_id: 0, away_team_id: 0}
+
+        # Convert penalties to events with start and end times
+        penalty_events = []
+        for penalty in penalties:
+            game_time = penalty.get('gameTime', {})
+            period = int(game_time.get('period', 1))
+            minutes = int(game_time.get('minutes', 0))
+            seconds = int(game_time.get('seconds', 0))
+
+            # Convert to seconds from game start
+            start_time = (period - 1) * 1200 + minutes * 60 + seconds
+
+            # Get penalty duration in seconds
+            duration_name = penalty.get('duration', {}).get('name', 'Minor')
+            if 'Minor' in duration_name or 'Mineure' in duration_name:
+                duration = 120  # 2 minutes
+            elif 'Major' in duration_name or 'Majeure' in duration_name:
+                duration = 300  # 5 minutes
+            elif 'Misconduct' in duration_name:
+                duration = 600  # 10 minutes
+            else:
+                duration = 120  # Default to 2 minutes
+
+            end_time = start_time + duration
+            team_id = penalty.get('teamId')
+
+            if team_id:
+                penalty_events.append({
+                    'team_id': team_id,
+                    'start': start_time,
+                    'end': end_time
+                })
+
+        # Track PP opportunities
+        pp_opportunities = {home_team_id: 0, away_team_id: 0}
+
+        # Sort all time points (starts and ends of penalties)
+        time_points = set()
+        for event in penalty_events:
+            time_points.add(event['start'])
+            time_points.add(event['end'])
+
+        time_points = sorted(time_points)
+
+        # Track previous PP state
+        prev_home_pp = False
+        prev_away_pp = False
+
+        # For each time segment, check PP state
+        for i in range(len(time_points) - 1):
+            current_time = time_points[i]
+
+            # Count active penalties for each team at this time
+            home_penalties = sum(1 for p in penalty_events
+                               if p['team_id'] == home_team_id and p['start'] <= current_time < p['end'])
+            away_penalties = sum(1 for p in penalty_events
+                               if p['team_id'] == away_team_id and p['start'] <= current_time < p['end'])
+
+            # Determine PP state
+            home_has_pp = away_penalties > home_penalties
+            away_has_pp = home_penalties > away_penalties
+
+            # Count new PP opportunities (transition from no PP to PP)
+            if home_has_pp and not prev_home_pp:
+                pp_opportunities[home_team_id] += 1
+            if away_has_pp and not prev_away_pp:
+                pp_opportunities[away_team_id] += 1
+
+            prev_home_pp = home_has_pp
+            prev_away_pp = away_has_pp
+
+        return pp_opportunities
+
     def process_games(self):
         """Process all games to compile statistics"""
         print("Processing game statistics...")
@@ -535,6 +620,11 @@ class HockeyStatsCompiler:
             # Update games played
             self.teams[home_team_id]['games_played'] += 1
             self.teams[away_team_id]['games_played'] += 1
+
+            # Calculate and update PP opportunities
+            pp_opps = self.calculate_powerplay_opportunities(game, home_team_id, away_team_id)
+            self.teams[home_team_id]['powerplay_opportunities'] += pp_opps.get(home_team_id, 0)
+            self.teams[away_team_id]['powerplay_opportunities'] += pp_opps.get(away_team_id, 0)
 
             # Update goals
             self.teams[home_team_id]['goals_for'] += home_score
@@ -1191,9 +1281,123 @@ class FormationDetector:
             'penalty_kill_units': self._get_ranked_penalty_kill_units(team_data)
         }
 
+    def _calculate_dominance_scores(self, formations_list, scores_trios, scores_pairs):
+        """
+        Calculate dominance scores for formations based on the provided algorithm.
+
+        Args:
+            formations_list: List of formations with their stats
+            scores_trios: Dict mapping trio keys to their raw scores
+            scores_pairs: Dict mapping pair keys to their raw scores
+
+        Returns:
+            Updated formations_list with dominance scores
+        """
+        # STEP 1: Calculate total raw score of all found formations
+        total_score = 0
+
+        for formation in formations_list:
+            formation_type = formation.get('type', 'trio')
+
+            # Determine raw score based on formation type
+            # For all types, use their points as raw score
+            raw_score = formation.get('points', 0)
+
+            formation['raw_score'] = raw_score
+            total_score += raw_score
+
+        # STEP 2: Calculate and add dominance score to each formation
+        if total_score > 0:
+            for formation in formations_list:
+                raw_score = formation.get('raw_score', 0)
+                dominance_score = (raw_score / total_score) * 100
+                formation['dominance_score'] = round(dominance_score, 1)
+        else:
+            # If no total score, set all dominance scores to 0
+            for formation in formations_list:
+                formation['dominance_score'] = 0.0
+
+        return formations_list
+
+    def _detect_deduced_trios(self, pairs_dict, team_data):
+        """
+        Detect deduced trios from pairs (when 3 players all have pairs with each other)
+
+        Args:
+            pairs_dict: Dict of pair_key -> stats
+            team_data: Team data including player positions
+
+        Returns:
+            List of deduced trios
+        """
+        deduced_trios = []
+        used_pairs = set()
+
+        # Build a graph of connections
+        player_connections = defaultdict(dict)
+        for pair_key, stats in pairs_dict.items():
+            if stats['goals'] > 0:
+                p1, p2 = pair_key
+                player_connections[p1][p2] = {'stats': stats, 'pair_key': pair_key}
+                player_connections[p2][p1] = {'stats': stats, 'pair_key': pair_key}
+
+        # Find triangles (3 players all connected to each other)
+        players = list(player_connections.keys())
+        for i, p1 in enumerate(players):
+            for j, p2 in enumerate(players[i+1:], i+1):
+                if p2 in player_connections[p1]:
+                    # p1 and p2 are connected, check for common connections
+                    for p3 in players[j+1:]:
+                        if p3 in player_connections[p1] and p3 in player_connections[p2]:
+                            # Found a triangle: p1-p2-p3
+                            pair_keys = [
+                                player_connections[p1][p2]['pair_key'],
+                                player_connections[p1][p3]['pair_key'],
+                                player_connections[p2][p3]['pair_key']
+                            ]
+
+                            # Skip if any pair already used
+                            if any(pk in used_pairs for pk in pair_keys):
+                                continue
+
+                            # Get stats for all three pairs
+                            stats_list = [
+                                player_connections[p1][p2]['stats'],
+                                player_connections[p1][p3]['stats'],
+                                player_connections[p2][p3]['stats']
+                            ]
+
+                            # Calculate combined stats (use best pair as representative)
+                            best_stats = max(stats_list, key=lambda s: s['points'])
+
+                            # Get player info
+                            players_info = []
+                            for pid in sorted([p1, p2, p3]):
+                                if pid in team_data['player_positions']:
+                                    players_info.append(team_data['player_positions'][pid])
+
+                            if len(players_info) == 3:
+                                deduced_trios.append({
+                                    'players': players_info,
+                                    'goals': best_stats['goals'],
+                                    'assists': best_stats['assists'],
+                                    'points': best_stats['points'],
+                                    'type': 'deduced_trio',
+                                    'key': tuple(sorted([p1, p2, p3])),
+                                    'source_pairs': pair_keys
+                                })
+
+                                # Mark these pairs as used
+                                used_pairs.update(pair_keys)
+
+        return deduced_trios, used_pairs
+
     def _get_ranked_forward_lines(self, team_data):
         """Get forward lines ranked by points"""
         lines = []
+        scores_trios = {}
+        scores_pairs = {}
+        existing_trio_keys = set()
 
         # Get all trios with goals > 0
         if team_data['even_strength_f_trios']:
@@ -1210,13 +1414,48 @@ class FormationDetector:
                             'goals': stats['goals'],
                             'assists': stats['assists'],
                             'points': stats['points'],
-                            'type': 'trio'
+                            'type': 'trio',
+                            'key': trio_key
                         })
+                        scores_trios[trio_key] = stats['points']
+                        existing_trio_keys.add(trio_key)
 
-        # Get forward pairs with goals > 0 (to show as incomplete trios)
+        # Detect deduced trios from pairs
+        deduced_trios, used_pair_keys = self._detect_deduced_trios(
+            team_data['even_strength_f_pairs'],
+            team_data
+        )
+
+        # Add deduced trios to lines, replacing direct trios if the deduced trio has more points
+        for deduced_trio in deduced_trios:
+            deduced_key = deduced_trio['key']
+
+            if deduced_key not in existing_trio_keys:
+                # New trio, just add it
+                lines.append(deduced_trio)
+                scores_trios[deduced_key] = deduced_trio['points']
+            else:
+                # Trio already exists as direct trio - compare points
+                # Find the existing direct trio in lines
+                existing_trio = None
+                existing_index = None
+                for i, line in enumerate(lines):
+                    if line.get('key') == deduced_key:
+                        existing_trio = line
+                        existing_index = i
+                        break
+
+                if existing_trio and deduced_trio['points'] > existing_trio['points']:
+                    # Deduced trio has more points, replace the direct trio
+                    lines[existing_index] = deduced_trio
+                    scores_trios[deduced_key] = deduced_trio['points']
+                    # Change type to indicate it was upgraded
+                    lines[existing_index]['type'] = 'deduced_trio'
+
+        # Get forward pairs with goals > 0 that are NOT part of a deduced trio
         if team_data['even_strength_f_pairs']:
             for pair_key, stats in team_data['even_strength_f_pairs'].items():
-                if stats['goals'] > 0:
+                if stats['goals'] > 0 and pair_key not in used_pair_keys:
                     players = []
                     for player_id in pair_key:
                         if player_id in team_data['player_positions']:
@@ -1228,16 +1467,26 @@ class FormationDetector:
                             'goals': stats['goals'],
                             'assists': stats['assists'],
                             'points': stats['points'],
-                            'type': 'pair'
+                            'type': 'pair',
+                            'key': pair_key
                         })
+                        scores_pairs[pair_key] = stats['points']
 
-        # Sort by goals descending
-        lines.sort(key=lambda x: x['goals'], reverse=True)
+        # Calculate dominance scores
+        lines = self._calculate_dominance_scores(lines, scores_trios, scores_pairs)
 
-        # Add rank (F1, F2, F3, etc.)
+        # Sort by points descending, then by dominance score
+        lines.sort(key=lambda x: (x['points'], x.get('dominance_score', 0)), reverse=True)
+
+        # Add rank (Line 1, Line 2, Line 3, etc.)
         ranked_lines = []
         for i, line in enumerate(lines[:3]):  # Top 3 lines
-            line['rank'] = f"F{i + 1}"
+            line['rank'] = f"Line {i + 1}"
+            # Remove internal keys used for calculation
+            if 'key' in line:
+                del line['key']
+            if 'source_pairs' in line:
+                del line['source_pairs']
             ranked_lines.append(line)
 
         return ranked_lines
@@ -1277,6 +1526,7 @@ class FormationDetector:
     def _get_ranked_powerplay_units(self, team_data):
         """Get powerplay units ranked by goals"""
         units = []
+        scores_units = {}
 
         # Get all PP units with goals > 0
         if team_data['powerplay_units']:
@@ -1288,20 +1538,32 @@ class FormationDetector:
                             players.append(team_data['player_positions'][player_id])
 
                     if len(players) >= 2:  # At least 2 players
+                        # Sort players: Forwards (F) first, then Defensemen (D)
+                        players.sort(key=lambda p: (0 if p['position'] in ['LW', 'C', 'RW', 'F'] else 1, p['name']))
+
                         units.append({
                             'players': players,
                             'goals': stats['goals'],
                             'assists': stats['assists'],
-                            'points': stats['points']
+                            'points': stats['points'],
+                            'type': 'powerplay',
+                            'key': unit_key
                         })
+                        scores_units[unit_key] = stats['points']
 
-        # Sort by goals descending
-        units.sort(key=lambda x: x['goals'], reverse=True)
+        # Calculate dominance scores
+        units = self._calculate_dominance_scores(units, scores_units, {})
+
+        # Sort by points descending, then by dominance score
+        units.sort(key=lambda x: (x['points'], x.get('dominance_score', 0)), reverse=True)
 
         # Add rank (PP1, PP2, etc.)
         ranked_units = []
         for i, unit in enumerate(units[:3]):  # Top 3 units
             unit['rank'] = f"PP{i + 1}"
+            # Remove internal key used for calculation
+            if 'key' in unit:
+                del unit['key']
             ranked_units.append(unit)
 
         return ranked_units

@@ -247,6 +247,14 @@ class GameDetailManager {
             if (duration.value !== undefined) {
                 return duration.value;
             }
+            if (duration.name !== undefined) {
+                // Convert penalty type name to minutes
+                const name = duration.name.toLowerCase();
+                if (name.includes('minor')) return 2;
+                if (name.includes('major')) return 5;
+                if (name.includes('misconduct')) return 10;
+                if (name.includes('match')) return 'Match';
+            }
             // If it's an object but we can't extract a meaningful value
             return '?';
         }
