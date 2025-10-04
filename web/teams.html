@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Équipes - LHEQ Statistics</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>LHEQ Statistics</h1>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Accueil</a>
+                <a href="teams.html" class="nav-link active">Équipes</a>
+                <a href="players.html" class="nav-link">Joueurs</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <section class="page-header">
+                <h2>Statistiques des Équipes</h2>
+                <p>Classement complet et statistiques détaillées de toutes les équipes</p>
+            </section>
+
+            <div class="filters">
+                <div class="filter-options">
+                    <label for="division-filter">Division:</label>
+                    <select id="division-filter">
+                        <option value="">Toutes les divisions</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table id="teams-table" class="teams-table">
+                    <thead>
+                        <tr>
+                            <th>Pos</th>
+                            <th>Logo</th>
+                            <th>Team</th>
+                            <th>GP</th>
+                            <th>W</th>
+                            <th>L</th>
+                            <th>T</th>
+                            <th>Pts</th>
+                            <th>GF</th>
+                            <th>GA</th>
+                            <th>Diff</th>
+                            <th>PIM</th>
+                            <th>Home/Away</th>
+                        </tr>
+                    </thead>
+                    <tbody id="teams-table-body">
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="team-cards" id="team-cards" style="display: none;">
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 LHEQ Statistics. Données compilées automatiquement.</p>
+        </div>
+    </footer>
+
+    <!-- DataTables CSS and JS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/teams.js"></script>
+</body>
+</html>

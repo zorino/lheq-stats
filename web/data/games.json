@@ -1,0 +1,461 @@
+[
+  {
+    "id": 614744,
+    "date": "2025-09-13",
+    "home_team": "CORSAIRES POINTE-LÉVY",
+    "away_team": "BLIZZARD SSF",
+    "home_score": 4,
+    "away_score": 2,
+    "status": "FINAL"
+  },
+  {
+    "id": 614745,
+    "date": "2025-09-13",
+    "home_team": "AS QUÉBEC",
+    "away_team": "ESPOIR SAGUENAY LAC ST-JEAN",
+    "home_score": 6,
+    "away_score": 1,
+    "status": "FINAL"
+  },
+  {
+    "id": 614746,
+    "date": "2025-09-13",
+    "home_team": "CONQUÉRANTS",
+    "away_team": "INTREPIDE",
+    "home_score": 4,
+    "away_score": 5,
+    "status": "FINAL"
+  },
+  {
+    "id": 614747,
+    "date": "2025-09-13",
+    "home_team": "LIONS LAC ST-LOUIS",
+    "away_team": "COLLEGE FRANCAIS RIVE-SUD",
+    "home_score": 9,
+    "away_score": 0,
+    "status": "FINAL"
+  },
+  {
+    "id": 614748,
+    "date": "2025-09-13",
+    "home_team": "DYNAMIQUES CCL",
+    "away_team": "NOIR ET OR DE MORTAGNE",
+    "home_score": 3,
+    "away_score": 4,
+    "status": "FINAL"
+  },
+  {
+    "id": 614749,
+    "date": "2025-09-13",
+    "home_team": "FORESTIERS A-T",
+    "away_team": "NATIONAL MONTRÉAL",
+    "home_score": 4,
+    "away_score": 5,
+    "status": "FINAL"
+  },
+  {
+    "id": 614750,
+    "date": "2025-09-13",
+    "home_team": "ALBATROS",
+    "away_team": "HARFANGS SHERBROOKE",
+    "home_score": 4,
+    "away_score": 4,
+    "status": "FINAL"
+  },
+  {
+    "id": 614751,
+    "date": "2025-09-13",
+    "home_team": "SÉLECTS",
+    "away_team": "ROCKET JR LAVAL",
+    "home_score": 5,
+    "away_score": 3,
+    "status": "FINAL"
+  },
+  {
+    "id": 614752,
+    "date": "2025-09-13",
+    "home_team": "PIONNIERS",
+    "away_team": "SEIGNEURS DES MILLE-ILES",
+    "home_score": 3,
+    "away_score": 7,
+    "status": "FINAL"
+  },
+  {
+    "id": 614753,
+    "date": "2025-09-14",
+    "home_team": "FORESTIERS A-T",
+    "away_team": "NATIONAL MONTRÉAL",
+    "home_score": 1,
+    "away_score": 2,
+    "status": "FINAL"
+  },
+  {
+    "id": 614754,
+    "date": "2025-09-13",
+    "home_team": "VERT & NOIR DE L'ÉCOLE FADETTE",
+    "away_team": "GRENADIERS LAC ST-LOUIS",
+    "home_score": 3,
+    "away_score": 5,
+    "status": "FINAL"
+  },
+  {
+    "id": 614755,
+    "date": "2025-09-14",
+    "home_team": "SEIGNEURS DES MILLE-ILES",
+    "away_team": "CONQUÉRANTS",
+    "home_score": 2,
+    "away_score": 3,
+    "status": "FINAL"
+  },
+  {
+    "id": 614756,
+    "date": "2025-09-14",
+    "home_team": "CORSAIRES POINTE-LÉVY",
+    "away_team": "ESTACADES MAURICIE",
+    "home_score": 2,
+    "away_score": 0,
+    "status": "FINAL"
+  },
+  {
+    "id": 614757,
+    "date": "2025-09-14",
+    "home_team": "ALBATROS",
+    "away_team": "HARFANGS SHERBROOKE",
+    "home_score": 3,
+    "away_score": 1,
+    "status": "FINAL"
+  },
+  {
+    "id": 614758,
+    "date": "2025-09-14",
+    "home_team": "INTREPIDE",
+    "away_team": "SÉLECTS",
+    "home_score": 1,
+    "away_score": 9,
+    "status": "FINAL"
+  },
+  {
+    "id": 614760,
+    "date": "2025-09-14",
+    "home_team": "ROCKET JR LAVAL",
+    "away_team": "PIONNIERS",
+    "home_score": 5,
+    "away_score": 2,
+    "status": "FINAL"
+  },
+  {
+    "id": 614761,
+    "date": "2025-09-14",
+    "home_team": "COLLEGE FRANCAIS RIVE-SUD",
+    "away_team": "GRENADIERS LAC ST-LOUIS",
+    "home_score": 0,
+    "away_score": 4,
+    "status": "FINAL"
+  },
+  {
+    "id": 614762,
+    "date": "2025-09-14",
+    "home_team": "NOIR ET OR DE MORTAGNE",
+    "away_team": "CASCADES ÉLITE",
+    "home_score": 5,
+    "away_score": 4,
+    "status": "FINAL"
+  },
+  {
+    "id": 618077,
+    "date": "2025-09-28",
+    "home_team": "CONQUÉRANTS",
+    "away_team": "PIONNIERS",
+    "home_score": 3,
+    "away_score": 2,
+    "status": "FINAL"
+  },
+  {
+    "id": 618078,
+    "date": "2025-09-20",
+    "home_team": "CONQUÉRANTS",
+    "away_team": "PIONNIERS",
+    "home_score": 5,
+    "away_score": 4,
+    "status": "FINAL"
+  },
+  {
+    "id": 618095,
+    "date": "2025-09-21",
+    "home_team": "HARFANGS SHERBROOKE",
+    "away_team": "VERT & NOIR DE L'ÉCOLE FADETTE",
+    "home_score": 5,
+    "away_score": 1,
+    "status": "FINAL"
+  },
+  {
+    "id": 618096,
+    "date": "2025-09-28",
+    "home_team": "HARFANGS SHERBROOKE",
+    "away_team": "GRENADIERS LAC ST-LOUIS",
+    "home_score": 4,
+    "away_score": 5,
+    "status": "FINAL"
+  },
+  {
+    "id": 618128,
+    "date": "2025-09-20",
+    "home_team": "GRENADIERS LAC ST-LOUIS",
+    "away_team": "LIONS LAC ST-LOUIS",
+    "home_score": 5,
+    "away_score": 2,
+    "status": "FINAL"
+  },
+  {
+    "id": 618129,
+    "date": "2025-09-27",
+    "home_team": "GRENADIERS LAC ST-LOUIS",
+    "away_team": "VERT & NOIR DE L'ÉCOLE FADETTE",
+    "home_score": 8,
+    "away_score": 0,
+    "status": "FINAL"
+  },
+  {
+    "id": 618140,
+    "date": "2025-09-27",
+    "home_team": "FORESTIERS A-T",
+    "away_team": "SÉLECTS",
+    "home_score": 3,
+    "away_score": 2,
+    "status": "FINAL"
+  },
+  {
+    "id": 618144,
+    "date": "2025-09-28",
+    "home_team": "FORESTIERS A-T",
+    "away_team": "SÉLECTS",
+    "home_score": 0,
+    "away_score": 5,
+    "status": "FINAL"
+  },
+  {
+    "id": 618150,
+    "date": "2025-09-27",
+    "home_team": "ESTACADES MAURICIE",
+    "away_team": "CORSAIRES POINTE-LÉVY",
+    "home_score": 1,
+    "away_score": 1,
+    "status": "FINAL"
+  },
+  {
+    "id": 618164,
+    "date": "2025-09-28",
+    "home_team": "NATIONAL MONTRÉAL",
+    "away_team": "ROCKET JR LAVAL",
+    "home_score": 4,
+    "away_score": 1,
+    "status": "FINAL"
+  },
+  {
+    "id": 618166,
+    "date": "2025-09-21",
+    "home_team": "PIONNIERS",
+    "away_team": "NATIONAL MONTRÉAL",
+    "home_score": 3,
+    "away_score": 3,
+    "status": "FINAL"
+  },
+  {
+    "id": 618175,
+    "date": "2025-09-20",
+    "home_team": "BLIZZARD SSF",
+    "away_team": "ALBATROS",
+    "home_score": 2,
+    "away_score": 1,
+    "status": "FINAL"
+  },
+  {
+    "id": 618180,
+    "date": "2025-09-20",
+    "home_team": "CASCADES ÉLITE",
+    "away_team": "ESTACADES MAURICIE",
+    "home_score": 2,
+    "away_score": 2,
+    "status": "FINAL"
+  },
+  {
+    "id": 618193,
+    "date": "2025-09-21",
+    "home_team": "LIONS LAC ST-LOUIS",
+    "away_team": "DYNAMIQUES CCL",
+    "home_score": 7,
+    "away_score": 1,
+    "status": "FINAL"
+  },
+  {
+    "id": 618209,
+    "date": "2025-09-20",
+    "home_team": "ROCKET JR LAVAL",
+    "away_team": "COLLEGE FRANCAIS RIVE-SUD",
+    "home_score": 3,
+    "away_score": 2,
+    "status": "FINAL"
+  },
+  {
+    "id": 618210,
+    "date": "2025-09-21",
+    "home_team": "ROCKET JR LAVAL",
+    "away_team": "SEIGNEURS DES MILLE-ILES",
+    "home_score": 3,
+    "away_score": 2,
+    "status": "FINAL"
+  },
+  {
+    "id": 618211,
+    "date": "2025-09-27",
+    "home_team": "ROCKET JR LAVAL",
+    "away_team": "NATIONAL MONTRÉAL",
+    "home_score": 1,
+    "away_score": 5,
+    "status": "FINAL"
+  },
+  {
+    "id": 618228,
+    "date": "2025-09-27",
+    "home_team": "ESPOIR SAGUENAY LAC ST-JEAN",
+    "away_team": "ALBATROS",
+    "home_score": 3,
+    "away_score": 3,
+    "status": "FINAL"
+  },
+  {
+    "id": 618237,
+    "date": "2025-09-28",
+    "home_team": "ESPOIR SAGUENAY LAC ST-JEAN",
+    "away_team": "ALBATROS",
+    "home_score": 2,
+    "away_score": 3,
+    "status": "FINAL"
+  },
+  {
+    "id": 618242,
+    "date": "2025-09-27",
+    "home_team": "LIONS LAC ST-LOUIS",
+    "away_team": "COLLEGE FRANCAIS RIVE-SUD",
+    "home_score": 12,
+    "away_score": 1,
+    "status": "FINAL"
+  },
+  {
+    "id": 618256,
+    "date": "2025-09-20",
+    "home_team": "SÉLECTS",
+    "away_team": "NOIR ET OR DE MORTAGNE",
+    "home_score": 2,
+    "away_score": 5,
+    "status": "FINAL"
+  },
+  {
+    "id": 618257,
+    "date": "2025-09-21",
+    "home_team": "CANAM BEAUCE-APPALACHES",
+    "away_team": "AS QUÉBEC",
+    "home_score": 1,
+    "away_score": 1,
+    "status": "FINAL"
+  },
+  {
+    "id": 618269,
+    "date": "2025-09-21",
+    "home_team": "CORSAIRES POINTE-LÉVY",
+    "away_team": "ESPOIR SAGUENAY LAC ST-JEAN",
+    "home_score": 0,
+    "away_score": 2,
+    "status": "FINAL"
+  },
+  {
+    "id": 618286,
+    "date": "2025-09-27",
+    "home_team": "INTREPIDE",
+    "away_team": "CONQUÉRANTS",
+    "home_score": 6,
+    "away_score": 4,
+    "status": "FINAL"
+  },
+  {
+    "id": 618290,
+    "date": "2025-09-28",
+    "home_team": "INTREPIDE",
+    "away_team": "SEIGNEURS DES MILLE-ILES",
+    "home_score": 1,
+    "away_score": 3,
+    "status": "FINAL"
+  },
+  {
+    "id": 618291,
+    "date": "2025-09-21",
+    "home_team": "INTREPIDE",
+    "away_team": "CONQUÉRANTS",
+    "home_score": 3,
+    "away_score": 1,
+    "status": "FINAL"
+  },
+  {
+    "id": 618333,
+    "date": "2025-09-20",
+    "home_team": "SEIGNEURS DES MILLE-ILES",
+    "away_team": "INTREPIDE",
+    "home_score": 2,
+    "away_score": 1,
+    "status": "FINAL"
+  },
+  {
+    "id": 618334,
+    "date": "2025-09-27",
+    "home_team": "SEIGNEURS DES MILLE-ILES",
+    "away_team": "PIONNIERS",
+    "home_score": 4,
+    "away_score": 4,
+    "status": "FINAL"
+  },
+  {
+    "id": 618340,
+    "date": "2025-09-28",
+    "home_team": "CANAM BEAUCE-APPALACHES",
+    "away_team": "CASCADES ÉLITE",
+    "home_score": 3,
+    "away_score": 1,
+    "status": "FINAL"
+  },
+  {
+    "id": 618345,
+    "date": "2025-09-26",
+    "home_team": "BLIZZARD SSF",
+    "away_team": "ESTACADES MAURICIE",
+    "home_score": 6,
+    "away_score": 2,
+    "status": "FINAL"
+  },
+  {
+    "id": 618358,
+    "date": "2025-09-27",
+    "home_team": "CANAM BEAUCE-APPALACHES",
+    "away_team": "BLIZZARD SSF",
+    "home_score": 2,
+    "away_score": 5,
+    "status": "FINAL"
+  },
+  {
+    "id": 618360,
+    "date": "2025-09-21",
+    "home_team": "GRENADIERS LAC ST-LOUIS",
+    "away_team": "NOIR ET OR DE MORTAGNE",
+    "home_score": 6,
+    "away_score": 0,
+    "status": "FINAL"
+  },
+  {
+    "id": 621296,
+    "date": "2025-09-26",
+    "home_team": "COLLEGE FRANCAIS RIVE-SUD",
+    "away_team": "VERT & NOIR DE L'ÉCOLE FADETTE",
+    "home_score": 4,
+    "away_score": 8,
+    "status": "FINAL"
+  }
+]

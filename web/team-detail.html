@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Équipe - LHEQ Statistics</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>LHEQ Statistics</h1>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Accueil</a>
+                <a href="teams.html" class="nav-link">Équipes</a>
+                <a href="players.html" class="nav-link">Joueurs</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="back-link">
+                <a href="teams.html">&larr; Retour aux équipes</a>
+            </div>
+
+            <section class="team-header">
+                <div class="team-info">
+                    <img id="team-logo" src="" alt="Team Logo" class="team-logo">
+                    <div class="team-details">
+                        <h1 id="team-name">Loading...</h1>
+                        <div class="team-stats">
+                            <span class="stat-record">Record: <span id="team-wins">--</span>-<span id="team-losses">--</span>-<span id="team-ties">--</span></span>
+                            <span class="stat-points">Points: <span id="team-points">--</span></span>
+                            <span class="stat-gp">GP: <span id="team-gp">--</span></span>
+                            <span class="stat-gf">GF: <span id="team-gf">--</span></span>
+                            <span class="stat-ga">GA: <span id="team-ga">--</span></span>
+                            <span class="stat-diff">Diff: <span id="team-diff">--</span></span>
+                            <span class="stat-pp">PP%: <span id="team-pp">--</span></span>
+                            <span class="stat-pk">PK%: <span id="team-pk">--</span></span>
+                            <span class="stat-home">Home: <span id="team-home">--</span></span>
+                            <span class="stat-away">Away: <span id="team-away">--</span></span>
+                            <span class="stat-pim">PIM: <span id="team-pim">--</span></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="team-games">
+                <h3>Derniers Matchs</h3>
+                <div class="games-pagination">
+                    <button id="games-prev" class="pagination-btn" disabled>&larr; Précédent</button>
+                    <span id="games-info">Matchs 1-5 sur --</span>
+                    <button id="games-next" class="pagination-btn">Suivant &rarr;</button>
+                </div>
+                <div class="table-container">
+                    <table class="games-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Adversaire</th>
+                                <th>Dom/Ext</th>
+                                <th>Résultat</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody id="games-body">
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="formations">
+                <h3>Formations Probables</h3>
+
+                <div class="formations-container">
+                    <div class="formation-section">
+                        <h4>Trios d'Attaque (Even Strength)</h4>
+                        <div id="f-lines" class="formations-list">
+                            <p class="no-data">Aucune ligne détectée</p>
+                        </div>
+                    </div>
+
+                    <div class="formation-section">
+                        <h4>Paires de Défense (Even Strength)</h4>
+                        <div id="d-pairs" class="formations-list">
+                            <p class="no-data">Aucune paire détectée</p>
+                        </div>
+                    </div>
+
+                    <div class="formation-section">
+                        <h4>Avantage Numérique</h4>
+                        <div id="pp-units" class="formations-list">
+                            <p class="no-data">Aucune unité détectée</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="roster">
+                <h3>Effectif de l'Équipe</h3>
+
+                <div class="player-tabs">
+                    <button class="tab-btn active" data-tab="skaters">Attaquants & Défenseurs</button>
+                    <button class="tab-btn" data-tab="goalies">Gardiens</button>
+                </div>
+
+                <div class="tab-content active" id="skaters-tab">
+                    <div class="table-container">
+                        <table class="players-table">
+                            <thead>
+                                <tr>
+                                    <th>Player</th>
+                                    <th>Pos</th>
+                                    <th>GP</th>
+                                    <th>G</th>
+                                    <th>A</th>
+                                    <th>Pts</th>
+                                    <th>PIM</th>
+                                    <th>PPG</th>
+                                    <th>SHG</th>
+                                </tr>
+                            </thead>
+                            <tbody id="skaters-body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="goalies-tab">
+                    <div class="table-container">
+                        <table class="players-table">
+                            <thead>
+                                <tr>
+                                    <th>Player</th>
+                                    <th>GP</th>
+                                    <th>W</th>
+                                    <th>L</th>
+                                    <th>T</th>
+                                    <th>GA</th>
+                                    <th>GAA</th>
+                                </tr>
+                            </thead>
+                            <tbody id="goalies-body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 LHEQ Statistics. Données compilées automatiquement.</p>
+        </div>
+    </footer>
+
+    <!-- DataTables CSS and JS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/team-detail.js"></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+{
+  "divisions": {
+    "L'Entrepôt du Hockey": {
+      "name": "Division L'Entrepôt du Hockey",
+      "teams": [
+        "Albatros de l'Est-du-Québec",
+        "As de Québec",
+        "Blizzard Séminaire St-François",
+        "Canam de Beauce-Appalaches",
+        "Cascades Élite",
+        "Corsaires de Pointe-Lévy",
+        "Espoirs Saguenay - Lac St-Jean",
+        "Estacades de la Mauricie",
+        "Nord-Côtiers"
+      ]
+    },
+    "Hockey Experts": {
+      "name": "Division Hockey Experts",
+      "teams": [
+        "Collège Français Rive-Sud",
+        "Dynamiques de CCL",
+        "Grenadiers du Lac St-Louis",
+        "Harfangs de Sherbrooke",
+        "Lions du Lac St-Louis",
+        "Noir et Or De Mortagne",
+        "Vert et Noir école Fadette"
+      ]
+    },
+    "Sports Rousseau": {
+      "name": "Division Sports Rousseau",
+      "teams": [
+        "Forestiers Abitibi-Témiscaming",
+        "Citadelles de Rouyn-Noranda",
+        "Conquérants Basses-Laurentides",
+        "National de Montréal",
+        "Intrépide de l'Outaouais",
+        "Pionniers de Lanaudière",
+        "Rocket Jr de Laval",
+        "Seigneurs des Mille-Îles",
+        "Sélects du Nord"
+      ]
+    }
+  },
+  "team_to_division": {
+    "Albatros de l'Est-du-Québec": "L'Entrepôt du Hockey",
+    "As de Québec": "L'Entrepôt du Hockey",
+    "Blizzard Séminaire St-François": "L'Entrepôt du Hockey",
+    "Canam de Beauce-Appalaches": "L'Entrepôt du Hockey",
+    "Cascades Élite": "L'Entrepôt du Hockey",
+    "Corsaires de Pointe-Lévy": "L'Entrepôt du Hockey",
+    "Espoirs Saguenay - Lac St-Jean": "L'Entrepôt du Hockey",
+    "Estacades de la Mauricie": "L'Entrepôt du Hockey",
+    "Nord-Côtiers": "L'Entrepôt du Hockey",
+    "Collège Français Rive-Sud": "Hockey Experts",
+    "Dynamiques de CCL": "Hockey Experts",
+    "Grenadiers du Lac St-Louis": "Hockey Experts",
+    "Harfangs de Sherbrooke": "Hockey Experts",
+    "Lions du Lac St-Louis": "Hockey Experts",
+    "Noir et Or De Mortagne": "Hockey Experts",
+    "Vert et Noir école Fadette": "Hockey Experts",
+    "Forestiers Abitibi-Témiscaming": "Sports Rousseau",
+    "Citadelles de Rouyn-Noranda": "Sports Rousseau",
+    "Conquérants Basses-Laurentides": "Sports Rousseau",
+    "National de Montréal": "Sports Rousseau",
+    "Intrépide de l'Outaouais": "Sports Rousseau",
+    "Pionniers de Lanaudière": "Sports Rousseau",
+    "Rocket Jr de Laval": "Sports Rousseau",
+    "Seigneurs des Mille-Îles": "Sports Rousseau",
+    "Sélects du Nord": "Sports Rousseau",
+    "BLIZZARD SSF": "L'Entrepôt du Hockey",
+    "INTREPIDE": "Sports Rousseau",
+    "SÉLECTS": "Sports Rousseau",
+    "ALBATROS": "L'Entrepôt du Hockey",
+    "CONQUÉRANTS": "Sports Rousseau",
+    "FORESTIERS A-T": "Sports Rousseau",
+    "PIONNIERS": "Sports Rousseau"
+  }
+}

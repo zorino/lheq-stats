@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual Environments
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Backup files
+*_backup.json
+*.bak
+
+# Temporary files
+*.tmp
+*.temp
+debug_*.py
+test_*.py
+
+# Selenium/Browser
+chromedriver
+geckodriver
+*.crx
