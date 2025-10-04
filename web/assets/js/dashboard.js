@@ -7,92 +7,66 @@ class Dashboard {
     async init() {
         try {
             await dataManager.loadData();
-            this.updateStatCards();
-            this.renderStandings();
-            this.renderTopScorers();
+            this.renderDivisionStandings();
         } catch (error) {
             console.error('Error initializing dashboard:', error);
             this.showError();
         }
     }
 
-    updateStatCards() {
-        const totalTeams = dataManager.teams.length;
-        const totalPlayers = dataManager.players.length;
-        const totalGames = dataManager.games.length;
-        const totalGoals = dataManager.getTotalGoals();
 
-        document.getElementById('total-teams').textContent = utils.formatNumber(totalTeams);
-        document.getElementById('total-players').textContent = utils.formatNumber(totalPlayers);
-        document.getElementById('total-games').textContent = utils.formatNumber(totalGames);
-        document.getElementById('total-goals').textContent = utils.formatNumber(totalGoals);
-    }
+    renderDivisionStandings() {
+        const divisions = {
+            "L'Entrepôt du Hockey": 'entrepot-hockey-body',
+            'Hockey Experts': 'hockey-experts-body',
+            'Sports Rousseau': 'sports-rousseau-body'
+        };
 
-    renderStandings() {
-        const standingsBody = document.getElementById('standings-body');
-        const topTeams = dataManager.teams.slice(0, 15); // Top 15 teams
+        Object.entries(divisions).forEach(([divisionName, bodyId]) => {
+            const standingsBody = document.getElementById(bodyId);
+            const divisionTeams = dataManager.teams
+                .filter(team => team.division === divisionName)
+                .sort((a, b) => {
+                    // Sort by points descending, then by goal differential descending
+                    if (b.points !== a.points) {
+                        return b.points - a.points;
+                    }
+                    return b.goal_differential - a.goal_differential;
+                });
 
-        standingsBody.innerHTML = '';
+            standingsBody.innerHTML = '';
 
-        topTeams.forEach((team, index) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${index + 1}</td>
-                <td>
-                    <div style="display: flex; align-items: center; gap: 0.5rem;">
-                        <img src="${team.local_logo || 'assets/logos/default.png'}"
-                             alt="${team.name}"
-                             class="team-logo"
-                             onerror="this.style.display='none'">
-                        <span>${this.truncateTeamName(team.name)}</span>
-                    </div>
-                </td>
-                <td>${team.games_played}</td>
-                <td>${team.wins}</td>
-                <td>${team.losses}</td>
-                <td>${team.ties}</td>
-                <td><strong>${team.points}</strong></td>
-                <td>${team.goals_for}</td>
-                <td>${team.goals_against}</td>
-                <td class="${team.goal_differential >= 0 ? 'positive' : 'negative'}">
-                    ${team.goal_differential > 0 ? '+' : ''}${team.goal_differential}
-                </td>
-            `;
-            standingsBody.appendChild(row);
+            divisionTeams.forEach((team, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>
+                        <a href="team-detail.html?id=${team.id}" class="team-link">
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <img src="${team.local_logo || 'assets/logos/default.png'}"
+                                     alt="${team.name}"
+                                     class="team-logo"
+                                     onerror="this.style.display='none'">
+                                <span>${this.truncateTeamName(team.name)}</span>
+                            </div>
+                        </a>
+                    </td>
+                    <td>${team.games_played}</td>
+                    <td>${team.wins}</td>
+                    <td>${team.losses}</td>
+                    <td>${team.ties}</td>
+                    <td><strong>${team.points}</strong></td>
+                    <td>${team.goals_for}</td>
+                    <td>${team.goals_against}</td>
+                    <td class="${team.goal_differential >= 0 ? 'positive' : 'negative'}">
+                        ${team.goal_differential > 0 ? '+' : ''}${team.goal_differential}
+                    </td>
+                `;
+                standingsBody.appendChild(row);
+            });
         });
     }
 
-    renderTopScorers() {
-        const scorersBody = document.getElementById('scorers-body');
-        const topScorers = dataManager.getSkaters()
-            .filter(player => player.games_played > 0 && player.points > 0)
-            .sort((a, b) => b.points - a.points) // Sort by points descending
-            .slice(0, 15); // Top 15 scorers
-
-        scorersBody.innerHTML = '';
-
-        if (topScorers.length === 0) {
-            const row = document.createElement('tr');
-            row.innerHTML = '<td colspan="7" class="text-center">Aucun marqueur trouvé</td>';
-            scorersBody.appendChild(row);
-            return;
-        }
-
-        topScorers.forEach((player, index) => {
-            const teamName = dataManager.getTeamName(player.team_id);
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${index + 1}</td>
-                <td><strong>${player.number ? '#' + player.number + ' ' : ''}${player.name}</strong></td>
-                <td>${this.truncateTeamName(teamName)}</td>
-                <td>${player.games_played}</td>
-                <td>${player.goals}</td>
-                <td>${player.assists}</td>
-                <td><strong>${player.points}</strong></td>
-            `;
-            scorersBody.appendChild(row);
-        });
-    }
 
     truncateTeamName(name, maxLength = 20) {
         if (name.length <= maxLength) return name;
@@ -123,45 +97,49 @@ style.textContent = `
         color: #666;
     }
 
-    /* Homepage specific table sizing */
-    .content-grid {
-        grid-template-columns: 60% 40%;
+    /* Homepage division tables styling */
+    .divisions-container {
+        display: flex;
+        flex-direction: column;
         gap: 2rem;
     }
 
-    .standings {
-        min-width: 0; /* Allow flex shrinking */
-    }
-
-    .top-scorers {
-        min-width: 0; /* Allow flex shrinking */
-    }
-
-    /* Responsive adjustments for homepage tables */
-    @media (max-width: 1024px) {
-        .content-grid {
-            grid-template-columns: 65% 35%;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .content-grid {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
+    .division-standings {
+        min-width: 0;
     }
 
     /* Make table text smaller on homepage to fit more content */
-    .standings-table,
-    .scorers-table {
+    .standings-table {
         font-size: 0.9rem;
     }
 
     .standings-table th,
-    .standings-table td,
-    .scorers-table th,
-    .scorers-table td {
+    .standings-table td {
         padding: 0.75rem 0.5rem;
+    }
+
+    /* Team link styling */
+    .team-link {
+        color: inherit;
+        text-decoration: none;
+        display: block;
+        transition: color 0.2s ease;
+    }
+
+    .team-link:hover {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .team-link:hover .team-logo {
+        opacity: 0.8;
+    }
+
+    /* Responsive adjustments for division tables */
+    @media (max-width: 768px) {
+        .divisions-container {
+            gap: 1.5rem;
+        }
     }
 `;
 document.head.appendChild(style);

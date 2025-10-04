@@ -4,7 +4,7 @@ LHEQ Hockey Statistics Compiler
 Unified script to process game data and generate website statistics
 
 This script combines:
-- Starting goalie parsing from PDF gamesheets
+- Starting goalie parsing from PDF gamesheets using Gemini AI
 - Team and player statistics compilation
 - Division assignment to teams
 - Formation/line combination analysis
@@ -22,15 +22,17 @@ from datetime import datetime
 from difflib import SequenceMatcher
 from itertools import combinations
 
-# PDF processing imports
+# Gemini AI support check
 try:
-    import pdfplumber
-    from pdf2image import convert_from_path
-    import pytesseract
-    PDF_SUPPORT = True
-except ImportError:
-    PDF_SUPPORT = False
-    print("Warning: PDF processing libraries not available. Install pdf2image, pytesseract, and pdfplumber for full functionality.")
+    import subprocess
+    # Test if gemini command is available
+    result = subprocess.run(['which', 'gemini'], capture_output=True, text=True)
+    GEMINI_SUPPORT = result.returncode == 0
+    if not GEMINI_SUPPORT:
+        print("Warning: Gemini AI command not found. Starting goalie parsing will be skipped.")
+except Exception:
+    GEMINI_SUPPORT = False
+    print("Warning: Gemini AI command not available. Starting goalie parsing will be skipped.")
 
 
 # ============================================================================
@@ -38,153 +40,215 @@ except ImportError:
 # ============================================================================
 
 class StartingGoalieParser:
-    """Parse PDF gamesheets to identify starting goalies marked with asterisk (*)"""
+    """Parse PDF gamesheets to identify starting goalies and add them to game JSON files"""
 
-    def __init__(self, gamesheet_dir='gamesheets', output_file='starting_goalies.json'):
+    def __init__(self, gamesheet_dir='web/data/gamesheets', game_dir='web/data/games'):
         self.gamesheet_dir = gamesheet_dir
-        self.output_file = output_file
-        self.starting_goalies_data = {}
+        self.game_dir = game_dir
+        self.processed_count = 0
+        self.skipped_count = 0
+
+    def has_starting_goalies(self, game_data):
+        """Check if game already has starting goalie data"""
+        return 'starting_goalies' in game_data and game_data['starting_goalies'] is not None
 
     def parse_gamesheet(self, pdf_path):
         """
-        Parse a PDF gamesheet to extract starting goalies marked with *
+        Parse a PDF gamesheet to extract starting goalies using Gemini AI
         Returns dict with starting goalies
         """
-        if not PDF_SUPPORT:
-            print("PDF support not available - skipping gamesheet parsing")
+        if not GEMINI_SUPPORT:
+            print("  Gemini AI not available - skipping gamesheet parsing")
             return None
 
         try:
-            # Use OCR to extract text from PDF image
-            images = convert_from_path(pdf_path, first_page=1, last_page=1)
-
-            if not images:
+            # Use Gemini AI to extract starting goalies from PDF
+            result = self._extract_goalies_with_gemini(pdf_path)
+            if result:
+                return result
+            else:
+                print("  No starting goalies found by Gemini AI")
                 return None
-
-            # Extract text using OCR
-            text = pytesseract.image_to_string(images[0])
-
-            if not text:
-                return None
-
-            # Look for goalie entries with asterisk
-            lines = text.split('\n')
-            starting_goalies = []
-            seen_goalies = set()  # Prevent duplicates
-
-            # Find goalies marked with * (may or may not have G)
-            for line in lines:
-                # Must have asterisk
-                if '*' not in line:
-                    continue
-
-                # Multiple patterns to handle OCR variations
-                # IMPORTANT: Also match patterns where * is at end without G
-                # Use IGNORECASE to handle mixed-case OCR output
-                patterns = [
-                    r'(\d+)/\s*([a-zA-Z][a-zA-Z\s\-\']+?)\s*\*\s*G',  # Number/ Name * G (with slash)
-                    r'(\d+)\s+([a-zA-Z][a-zA-Z\s\-\']+?)\s*\*\s*$',  # Number Name * (end of line)
-                    r'(\d+)\s+([a-zA-Z][a-zA-Z\s\-\']+?)\s*\*\s*G',  # Number Name * G
-                    r'(\d+)\s*\|?([a-zA-Z\s\-\']+?)\s*\*\s*G',    # Number | Name * G
-                    r'\|(\d+)\|([a-zA-Z\s\-\']+?)\s*\*\s*G',      # |Number| Name * G
-                    r'(\d+)/([a-zA-Z\s\-\']+?)\s*\*\s*$',         # Number/Name * (end of line)
-                    r'(\d+)[^\w]*([a-zA-Z][a-zA-Z\s\-\']*?)\s*\*\s*G',  # Number Name * G (loose)
-                    r'([a-zA-Z\s\-\']{5,})\s*\*\s*G',             # Name * G (no number)
-                    r'([a-zA-Z\s\-\']{5,})\s*\*\s*$',             # Name * (no number, end of line)
-                ]
-
-                for pattern in patterns:
-                    match = re.search(pattern, line, re.IGNORECASE)
-                    if match:
-                        groups = match.groups()
-                        number = 0
-                        name = ''
-
-                        # Try to extract number and name
-                        if len(groups) == 2:
-                            if groups[0].isdigit():
-                                number = groups[0]
-                                name = groups[1].strip()
-                            else:
-                                # Pattern matched name only, no number
-                                number = 0
-                                name = groups[0].strip()
-                        elif len(groups) == 1:
-                            # Name only pattern
-                            number = 0
-                            name = groups[0].strip()
-                        else:
-                            continue
-
-                        # Clean up name (remove extra pipes and spaces)
-                        name = re.sub(r'[|]+', ' ', name).strip()
-                        name = re.sub(r'\s+', ' ', name)  # Collapse multiple spaces
-
-                        # Remove common OCR artifacts
-                        name = re.sub(r'\d+$', '', name).strip()  # Remove trailing numbers
-                        name = re.sub(r'^[|/\-\s]+', '', name).strip()  # Remove leading junk
-
-                        # Convert to uppercase for consistency
-                        name = name.upper()
-
-                        # More lenient sanity check - must be at least 5 chars for a name
-                        if name and len(name) >= 5 and name not in seen_goalies:
-                            goalie_entry = {
-                                'number': int(number) if str(number).isdigit() else 0,
-                                'name': name,
-                                'line': line.strip()
-                            }
-                            starting_goalies.append(goalie_entry)
-                            seen_goalies.add(name)
-                            print(f"  Found starting goalie: #{number} {name}")
-                            break
-
-            # Return the goalies found
-            return {
-                'goalies': starting_goalies,
-                'count': len(starting_goalies)
-            }
 
         except Exception as e:
             print(f"  Error parsing {pdf_path}: {e}")
             return None
 
-    def parse_all_gamesheets(self):
-        """Parse all PDF gamesheets and extract starting goalie information"""
+    def _extract_goalies_with_gemini(self, pdf_path):
+        """Extract starting goalies using Gemini AI"""
+        import subprocess
+        import json
+        import os
+
+        try:
+            # Get the absolute path for the PDF
+            abs_pdf_path = os.path.abspath(pdf_path)
+
+            # Construct the Gemini command
+            prompt = (
+                "extrait moi les gardiens partant du pdf suivant (à noter que le gardien partant possède un * à coté de son nom). "
+                "donne seulement ta réponse dans le format json. le format devra respecter le format suivant en exemple : "
+                '{"visiteurs": {"equipe": "COLLEGE FRANCAIS RIVE-SUD", "gardien_partant": "LUCAS LESSARD"}, '
+                '"locaux": {"equipe": "LIONS LAC ST-LOUIS", "gardien_partant": "BRENDAN BOILY"}}'
+            )
+
+            # Run Gemini command
+            cmd = ["gemini", prompt, f"@{abs_pdf_path}"]
+            print(f"  Running Gemini AI extraction...")
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+
+            if result.returncode != 0:
+                print(f"  Gemini command failed: {result.stderr}")
+                return None
+
+            # Parse JSON response (remove markdown code blocks if present)
+            try:
+                response_text = result.stdout.strip()
+                # Remove markdown code blocks if present
+                if response_text.startswith('```json'):
+                    response_text = response_text.replace('```json', '').replace('```', '').strip()
+                elif response_text.startswith('```'):
+                    response_text = response_text.replace('```', '').strip()
+
+                gemini_data = json.loads(response_text)
+                print(f"  Gemini response: {gemini_data}")
+
+                # Convert Gemini format to our internal format
+                starting_goalies = []
+
+                if 'visiteurs' in gemini_data and 'gardien_partant' in gemini_data['visiteurs']:
+                    away_goalie = gemini_data['visiteurs']['gardien_partant']
+                    if away_goalie:
+                        starting_goalies.append({
+                            'number': 0,  # No number from Gemini
+                            'name': away_goalie.upper(),
+                            'team': gemini_data['visiteurs'].get('equipe', '').upper(),
+                            'type': 'away'
+                        })
+                        print(f"  Found away starting goalie: {away_goalie}")
+
+                if 'locaux' in gemini_data and 'gardien_partant' in gemini_data['locaux']:
+                    home_goalie = gemini_data['locaux']['gardien_partant']
+                    if home_goalie:
+                        starting_goalies.append({
+                            'number': 0,  # No number from Gemini
+                            'name': home_goalie.upper(),
+                            'team': gemini_data['locaux'].get('equipe', '').upper(),
+                            'type': 'home'
+                        })
+                        print(f"  Found home starting goalie: {home_goalie}")
+
+                if starting_goalies:
+                    return {
+                        'goalies': starting_goalies,
+                        'count': len(starting_goalies)
+                    }
+                else:
+                    print("  No starting goalies found in Gemini response")
+                    return None
+
+            except json.JSONDecodeError as e:
+                print(f"  Failed to parse Gemini JSON response: {e}")
+                print(f"  Raw response: {result.stdout}")
+                return None
+
+        except subprocess.TimeoutExpired:
+            print("  Gemini command timed out")
+            return None
+        except Exception as e:
+            print(f"  Error calling Gemini: {e}")
+            return None
+
+
+    def parse_all_gamesheets(self, limit=None):
+        """Parse all PDF gamesheets and add starting goalie information to game JSON files"""
 
         if not os.path.exists(self.gamesheet_dir):
             print(f"Directory {self.gamesheet_dir} not found - skipping goalie parsing")
             return False
 
+        if not os.path.exists(self.game_dir):
+            print(f"Directory {self.game_dir} not found - skipping goalie parsing")
+            return False
+
         pdf_files = [f for f in os.listdir(self.gamesheet_dir) if f.endswith('.pdf')]
-        print(f"Found {len(pdf_files)} PDF gamesheets")
+        if limit:
+            pdf_files = pdf_files[:limit]
+            print(f"Found {len(pdf_files)} PDF gamesheets (limited to {limit} for testing)")
+        else:
+            print(f"Found {len(pdf_files)} PDF gamesheets")
+
+        self.processed_count = 0
+        self.skipped_count = 0
 
         for pdf_file in sorted(pdf_files):
             pdf_path = os.path.join(self.gamesheet_dir, pdf_file)
-            print(f"Processing: {pdf_file}")
 
             # Extract game ID from filename
             game_id_match = re.search(r'game_(\d+)', pdf_file)
             if not game_id_match:
+                print(f"Processing: {pdf_file}")
                 print(f"  Could not extract game ID from {pdf_file}")
                 continue
 
-            game_id = int(game_id_match.group(1))
+            game_id = game_id_match.group(1)
+            # Look for game file with full filename pattern
+            game_files = [f for f in os.listdir(self.game_dir) if f.startswith(f"game_{game_id}_") and f.endswith('.json')]
+            if game_files:
+                game_file = os.path.join(self.game_dir, game_files[0])
+            else:
+                game_file = os.path.join(self.game_dir, f"game_{game_id}.json")
+
+            # Check if corresponding game file exists
+            if not os.path.exists(game_file):
+                print(f"Processing: {pdf_file}")
+                print(f"  Corresponding game file {game_file} not found - skipping")
+                continue
+
+            # Load the game data
+            try:
+                with open(game_file, 'r', encoding='utf-8') as f:
+                    game_data = json.load(f)
+            except Exception as e:
+                print(f"Processing: {pdf_file}")
+                print(f"  Error loading game file {game_file}: {e}")
+                continue
+
+            print(f"Processing: {pdf_file}")
+
+            # Skip if already has starting goalies
+            if self.has_starting_goalies(game_data):
+                print(f"  Already has starting goalie data - skipping")
+                self.skipped_count += 1
+                continue
 
             # Parse the gamesheet
             result = self.parse_gamesheet(pdf_path)
             if result and result['count'] > 0:
-                self.starting_goalies_data[game_id] = result
-                print(f"  Found {result['count']} starting goalies")
+                # Add starting goalies to game data
+                game_data['starting_goalies'] = {
+                    'home_goalie': None,
+                    'away_goalie': None
+                }
+
+                for goalie in result['goalies']:
+                    if goalie['type'] == 'home':
+                        game_data['starting_goalies']['home_goalie'] = goalie['name']
+                    elif goalie['type'] == 'away':
+                        game_data['starting_goalies']['away_goalie'] = goalie['name']
+
+                # Save updated game data
+                try:
+                    with open(game_file, 'w', encoding='utf-8') as f:
+                        json.dump(game_data, f, indent=2, ensure_ascii=False)
+                    print(f"  Found {result['count']} starting goalies - saved to game file")
+                    self.processed_count += 1
+                except Exception as e:
+                    print(f"  Error saving game file: {e}")
             else:
                 print("  No starting goalies found")
 
-        # Save the results
-        with open(self.output_file, 'w') as f:
-            json.dump(self.starting_goalies_data, f, indent=2)
-
-        print(f"\nSaved starting goalie data to {self.output_file}")
-        print(f"Successfully processed {len(self.starting_goalies_data)} gamesheets")
+        print(f"\nProcessing summary: {self.processed_count} new, {self.skipped_count} already processed")
         return True
 
 
@@ -301,28 +365,35 @@ class HockeyStatsCompiler:
         print(f"Built position index for {len(self.player_positions)} players")
 
     def load_starting_goalies(self):
-        """Load starting goalie data from parsed PDF gamesheets"""
-        starting_goalies_file = 'starting_goalies.json'
+        """Load starting goalie data from game JSON files"""
+        games_with_starting_goalies = 0
 
-        if not os.path.exists(starting_goalies_file):
-            print(f"Warning: {starting_goalies_file} not found. Goalie statistics may be inaccurate.")
-            return
+        for game in self.games:
+            if 'starting_goalies' in game and game['starting_goalies'] is not None:
+                game_id = game['id']
+                starting_names = []
 
-        try:
-            with open(starting_goalies_file, 'r') as f:
-                data = json.load(f)
+                # Handle both old and new formats
+                starting_data = game['starting_goalies']
 
-            # Convert game IDs to integers and create mapping
-            for game_id_str, game_data in data.items():
-                game_id = int(game_id_str)
-                starting_names = [goalie['name'] for goalie in game_data['goalies']]
-                self.starting_goalies[game_id] = starting_names
+                # New format from scraper: {"home_goalie": "NAME", "away_goalie": "NAME"}
+                if 'home_goalie' in starting_data and 'away_goalie' in starting_data:
+                    if starting_data.get('home_goalie'):
+                        starting_names.append(starting_data['home_goalie'])
+                    if starting_data.get('away_goalie'):
+                        starting_names.append(starting_data['away_goalie'])
 
-            print(f"Loaded starting goalie data for {len(self.starting_goalies)} games")
+                # Old format from stats compiler: {"goalies": [...], "count": N}
+                elif 'goalies' in starting_data:
+                    for goalie in starting_data['goalies']:
+                        if goalie.get('name'):
+                            starting_names.append(goalie['name'])
 
-        except Exception as e:
-            print(f"Error loading starting goalies: {e}")
-            print("Proceeding without starting goalie data.")
+                if starting_names:
+                    self.starting_goalies[game_id] = starting_names
+                    games_with_starting_goalies += 1
+
+        print(f"Loaded starting goalie data for {games_with_starting_goalies} games")
 
     def normalize_name(self, name):
         """Normalize player name for comparison (remove accents, etc.)"""
@@ -331,22 +402,83 @@ class HockeyStatsCompiler:
         ascii_name = ''.join(c for c in normalized if unicodedata.category(c) != 'Mn')
         return ascii_name.upper().strip()
 
-    def is_starting_goalie(self, game_id, player_name):
+    def is_starting_goalie(self, game_id, player_name, team_id=None, game_data=None):
         """Check if a goalie was a starter in the given game"""
-        # If no starting goalie data for this game, don't count any goalies
-        if game_id not in self.starting_goalies:
+        # If we have starting goalie data for this game, use it
+        if game_id in self.starting_goalies:
+            starting_names = self.starting_goalies[game_id]
+            normalized_player_name = self.normalize_name(player_name)
+
+            # Check if this player matches any starting goalie
+            for starting_name in starting_names:
+                if self.normalize_name(starting_name) == normalized_player_name:
+                    return True
             return False
 
-        # Get list of starting goalie names for this game
-        starting_names = self.starting_goalies[game_id]
-        normalized_player_name = self.normalize_name(player_name)
+        # Fallback: if no starting goalie data available, use heuristic
+        # Assume the first goalie in the roster is the starter
+        if team_id and game_data:
+            return self._is_likely_starting_goalie(player_name, team_id, game_data)
 
-        # Check if this player matches any starting goalie
-        for starting_name in starting_names:
-            if self.normalize_name(starting_name) == normalized_player_name:
-                return True
+        # If no fallback data available, assume all goalies are starters
+        # This ensures goalie stats are still tracked
+        return True
 
-        return False
+    def _is_likely_starting_goalie(self, player_name, team_id, game_data):
+        """Heuristic to determine likely starting goalie from roster"""
+        # Get the team's roster
+        home_team = game_data.get('boxscore', {}).get('teams', [])[0] if len(game_data.get('boxscore', {}).get('teams', [])) > 0 else None
+        away_team = game_data.get('boxscore', {}).get('teams', [])[1] if len(game_data.get('boxscore', {}).get('teams', [])) > 1 else None
+
+        if not home_team or not away_team:
+            return True
+
+        # Determine which roster to check
+        roster_key = 'home_team_roster' if team_id == home_team.get('id') else 'away_team_roster'
+        roster = game_data.get(roster_key, [])
+
+        # Find all goalies in the roster
+        goalies = []
+        for player in roster:
+            player_positions = player.get('positions', [])
+            if 'G' in player_positions:
+                number = player.get('number')
+                # Handle invalid/missing numbers
+                if number is None or number == 0:
+                    number = 999  # Put at end
+                goalies.append({
+                    'name': player['participant']['fullName'],
+                    'id': player['participantId'],
+                    'number': number
+                })
+
+        if not goalies:
+            return True
+
+        # If there's only one goalie, they're the starter
+        if len(goalies) == 1:
+            return goalies[0]['name'] == player_name
+
+        # Sort by jersey number (lower valid numbers typically start)
+        # Put goalies with valid numbers first, then invalid ones
+        def sort_key(goalie):
+            if goalie['number'] == 999:  # Invalid number
+                return (1, goalie['name'])  # Sort by name as tiebreaker
+            else:
+                return (0, goalie['number'])  # Valid numbers first
+
+        goalies.sort(key=sort_key)
+
+        # For teams with multiple goalies, be more conservative
+        # Only the first goalie with a valid number is considered starter
+        # If no valid numbers, consider first two goalies as potential starters
+        valid_goalies = [g for g in goalies if g['number'] != 999]
+        if valid_goalies:
+            # First goalie with valid number is starter
+            return valid_goalies[0]['name'] == player_name
+        else:
+            # No valid numbers, first two goalies might be starters
+            return goalies.index(next((g for g in goalies if g['name'] == player_name), None)) < 2 if any(g['name'] == player_name for g in goalies) else False
 
     def get_player_position(self, boxscore, player_id):
         """Get player position from global index or current roster"""
@@ -533,7 +665,7 @@ class HockeyStatsCompiler:
                     player_games[player_id] = set()
                 player_games[player_id].add(game['id'])
 
-                if position == 'G' and self.is_starting_goalie(game['id'], player_name):
+                if position == 'G' and self.is_starting_goalie(game['id'], player_name, team_id, game):
                     if home_score > away_score:
                         self.players[player_id]['wins'] += 1
                     elif home_score < away_score:
@@ -560,7 +692,7 @@ class HockeyStatsCompiler:
                     player_games[player_id] = set()
                 player_games[player_id].add(game['id'])
 
-                if position == 'G' and self.is_starting_goalie(game['id'], player_name):
+                if position == 'G' and self.is_starting_goalie(game['id'], player_name, team_id, game):
                     if away_score > home_score:
                         self.players[player_id]['wins'] += 1
                     elif away_score < home_score:
@@ -575,8 +707,17 @@ class HockeyStatsCompiler:
                 if self.players[player_id]['position'] == 'G':
                     started_games = 0
                     player_name = self.players[player_id]['name']
+                    team_id = self.players[player_id]['team_id']
+
                     for game_id in game_set:
-                        if self.is_starting_goalie(game_id, player_name):
+                        # Find the game data for this game_id
+                        game_data = None
+                        for game in self.games:
+                            if game['id'] == game_id:
+                                game_data = game
+                                break
+
+                        if self.is_starting_goalie(game_id, player_name, team_id, game_data):
                             started_games += 1
                     self.players[player_id]['games_played'] = started_games
                 else:
@@ -594,6 +735,9 @@ class HockeyStatsCompiler:
         logos_dir = os.path.join(self.web_dir, 'assets', 'logos')
         os.makedirs(logos_dir, exist_ok=True)
 
+        downloaded_count = 0
+        skipped_count = 0
+
         for team_id, logo_url in self.team_logos.items():
             if not logo_url:
                 continue
@@ -603,6 +747,14 @@ class HockeyStatsCompiler:
                 file_ext = os.path.splitext(parsed_url.path)[1] or '.png'
                 filename = f"team_{team_id}{file_ext}"
                 filepath = os.path.join(logos_dir, filename)
+
+                # Check if logo already exists
+                if os.path.exists(filepath):
+                    if team_id in self.teams:
+                        self.teams[team_id]['local_logo'] = f"assets/logos/{filename}"
+                    print(f"  Logo already exists for team {team_id}")
+                    skipped_count += 1
+                    continue
 
                 response = requests.get(logo_url, timeout=10)
                 response.raise_for_status()
@@ -614,9 +766,12 @@ class HockeyStatsCompiler:
                     self.teams[team_id]['local_logo'] = f"assets/logos/{filename}"
 
                 print(f"  Downloaded logo for team {team_id}")
+                downloaded_count += 1
 
             except Exception as e:
                 print(f"  Failed to download logo for team {team_id}: {e}")
+
+        print(f"Logo download summary: {downloaded_count} downloaded, {skipped_count} already existed")
 
     def save_data(self):
         """Save compiled statistics to JSON files"""
@@ -787,11 +942,11 @@ class FormationDetector:
     def __init__(self, games_data):
         self.games = games_data
         self.team_formations = defaultdict(lambda: {
-            'even_strength_f_trios': defaultdict(int),
-            'even_strength_f_pairs': defaultdict(int),
-            'even_strength_d_duos': defaultdict(int),
-            'powerplay_units': defaultdict(int),
-            'penalty_kill_units': defaultdict(int),
+            'even_strength_f_trios': defaultdict(lambda: {'goals': 0, 'assists': 0, 'points': 0}),
+            'even_strength_f_pairs': defaultdict(lambda: {'goals': 0, 'assists': 0, 'points': 0}),
+            'even_strength_d_duos': defaultdict(lambda: {'goals': 0, 'assists': 0, 'points': 0}),
+            'powerplay_units': defaultdict(lambda: {'goals': 0, 'assists': 0, 'points': 0}),
+            'penalty_kill_units': defaultdict(lambda: {'goals': 0, 'assists': 0, 'points': 0}),
             'player_positions': {}
         })
 
@@ -806,7 +961,6 @@ class FormationDetector:
             self._build_position_map(game)
             self._analyze_goals(game)
 
-        self._calculate_confidence_scores()
         print(f"Formation analysis completed for {len(self.team_formations)} teams")
 
     def _build_position_map(self, game):
@@ -892,55 +1046,136 @@ class FormationDetector:
         """Detect even strength formations"""
         team_data = self.team_formations[team_id]
 
+        # Calculate total points from this goal (1 goal + number of assists)
+        goal_points = 1  # The goal itself
+        assist_points = len(goal.get('assists', []))
+        total_points = goal_points + assist_points
+
         if len(forwards) >= 3:
             for trio in combinations(forwards, 3):
                 trio_key = tuple(sorted([p['id'] for p in trio]))
-                team_data['even_strength_f_trios'][trio_key] += 1
+                # Check how many players from this trio were involved in the goal
+                trio_ids = set([p['id'] for p in trio])
+                involved_players = set()
+
+                # Add scorer if in trio
+                scorer_id = goal['participant']['participantId']
+                if scorer_id in trio_ids:
+                    involved_players.add(scorer_id)
+                    team_data['even_strength_f_trios'][trio_key]['goals'] += 1
+
+                # Add assists if in trio
+                for assist in goal.get('assists', []):
+                    assist_id = assist['participantId']
+                    if assist_id in trio_ids:
+                        involved_players.add(assist_id)
+                        team_data['even_strength_f_trios'][trio_key]['assists'] += 1
+
+                # Update total points
+                if involved_players:
+                    team_data['even_strength_f_trios'][trio_key]['points'] = (
+                        team_data['even_strength_f_trios'][trio_key]['goals'] +
+                        team_data['even_strength_f_trios'][trio_key]['assists']
+                    )
 
         if len(forwards) >= 2:
             for pair in combinations(forwards, 2):
                 pair_key = tuple(sorted([p['id'] for p in pair]))
-                team_data['even_strength_f_pairs'][pair_key] += 1
+                pair_ids = set([p['id'] for p in pair])
+                involved_players = set()
+
+                # Add scorer if in pair
+                scorer_id = goal['participant']['participantId']
+                if scorer_id in pair_ids:
+                    involved_players.add(scorer_id)
+                    team_data['even_strength_f_pairs'][pair_key]['goals'] += 1
+
+                # Add assists if in pair
+                for assist in goal.get('assists', []):
+                    assist_id = assist['participantId']
+                    if assist_id in pair_ids:
+                        involved_players.add(assist_id)
+                        team_data['even_strength_f_pairs'][pair_key]['assists'] += 1
+
+                # Update total points
+                if involved_players:
+                    team_data['even_strength_f_pairs'][pair_key]['points'] = (
+                        team_data['even_strength_f_pairs'][pair_key]['goals'] +
+                        team_data['even_strength_f_pairs'][pair_key]['assists']
+                    )
 
         if len(defensemen) >= 2:
             for pair in combinations(defensemen, 2):
                 pair_key = tuple(sorted([p['id'] for p in pair]))
-                team_data['even_strength_d_duos'][pair_key] += 1
+                pair_ids = set([p['id'] for p in pair])
+                involved_players = set()
+
+                # Add scorer if in pair
+                scorer_id = goal['participant']['participantId']
+                if scorer_id in pair_ids:
+                    involved_players.add(scorer_id)
+                    team_data['even_strength_d_duos'][pair_key]['goals'] += 1
+
+                # Add assists if in pair
+                for assist in goal.get('assists', []):
+                    assist_id = assist['participantId']
+                    if assist_id in pair_ids:
+                        involved_players.add(assist_id)
+                        team_data['even_strength_d_duos'][pair_key]['assists'] += 1
+
+                # Update total points
+                if involved_players:
+                    team_data['even_strength_d_duos'][pair_key]['points'] = (
+                        team_data['even_strength_d_duos'][pair_key]['goals'] +
+                        team_data['even_strength_d_duos'][pair_key]['assists']
+                    )
 
     def _detect_powerplay_units(self, team_id, players, goal):
         """Detect powerplay units"""
         team_data = self.team_formations[team_id]
         unit_key = tuple(sorted([p['id'] for p in players]))
-        team_data['powerplay_units'][unit_key] += 1
+        unit_ids = set([p['id'] for p in players])
+
+        # Add scorer if in unit
+        scorer_id = goal['participant']['participantId']
+        if scorer_id in unit_ids:
+            team_data['powerplay_units'][unit_key]['goals'] += 1
+
+        # Add assists if in unit
+        for assist in goal.get('assists', []):
+            assist_id = assist['participantId']
+            if assist_id in unit_ids:
+                team_data['powerplay_units'][unit_key]['assists'] += 1
+
+        # Update total points
+        team_data['powerplay_units'][unit_key]['points'] = (
+            team_data['powerplay_units'][unit_key]['goals'] +
+            team_data['powerplay_units'][unit_key]['assists']
+        )
 
     def _detect_penalty_kill_units(self, team_id, players, goal):
         """Detect penalty kill units"""
         team_data = self.team_formations[team_id]
         unit_key = tuple(sorted([p['id'] for p in players]))
-        team_data['penalty_kill_units'][unit_key] += 1
+        unit_ids = set([p['id'] for p in players])
 
-    def _calculate_confidence_scores(self):
-        """Calculate confidence scores for formations"""
-        for team_id, team_data in self.team_formations.items():
-            if team_data['even_strength_f_trios']:
-                max_trio_count = max(team_data['even_strength_f_trios'].values())
-                for trio_key in team_data['even_strength_f_trios']:
-                    count = team_data['even_strength_f_trios'][trio_key]
-                    confidence = min(100, (count / max(max_trio_count, 1)) * 100)
-                    team_data['even_strength_f_trios'][trio_key] = {
-                        'count': count,
-                        'confidence': round(confidence, 1)
-                    }
+        # Add scorer if in unit
+        scorer_id = goal['participant']['participantId']
+        if scorer_id in unit_ids:
+            team_data['penalty_kill_units'][unit_key]['goals'] += 1
 
-            if team_data['even_strength_d_duos']:
-                max_duo_count = max(team_data['even_strength_d_duos'].values())
-                for duo_key in team_data['even_strength_d_duos']:
-                    count = team_data['even_strength_d_duos'][duo_key]
-                    confidence = min(100, (count / max(max_duo_count, 1)) * 100)
-                    team_data['even_strength_d_duos'][duo_key] = {
-                        'count': count,
-                        'confidence': round(confidence, 1)
-                    }
+        # Add assists if in unit
+        for assist in goal.get('assists', []):
+            assist_id = assist['participantId']
+            if assist_id in unit_ids:
+                team_data['penalty_kill_units'][unit_key]['assists'] += 1
+
+        # Update total points
+        team_data['penalty_kill_units'][unit_key]['points'] = (
+            team_data['penalty_kill_units'][unit_key]['goals'] +
+            team_data['penalty_kill_units'][unit_key]['assists']
+        )
+
 
     def get_team_formations(self, team_id):
         """Get formatted formations for a specific team"""
@@ -950,149 +1185,158 @@ class FormationDetector:
         team_data = self.team_formations[team_id]
 
         return {
-            'f_lines': self._get_optimal_forward_lines(team_data),
-            'd_pairs': self._get_optimal_defense_pairs(team_data),
-            'powerplay_units': self._get_special_teams_units(team_data, 'powerplay_units'),
-            'penalty_kill_units': self._get_special_teams_units(team_data, 'penalty_kill_units')
+            'forward_lines': self._get_ranked_forward_lines(team_data),
+            'defense_pairs': self._get_ranked_defense_pairs(team_data),
+            'powerplay_units': self._get_ranked_powerplay_units(team_data),
+            'penalty_kill_units': self._get_ranked_penalty_kill_units(team_data)
         }
 
-    def _get_optimal_forward_lines(self, team_data):
-        """Get optimal forward line combinations"""
-        trio_candidates = []
-        if team_data['even_strength_f_trios']:
-            for trio_key, trio_data in team_data['even_strength_f_trios'].items():
-                if isinstance(trio_data, dict):
-                    count = trio_data['count']
-                    confidence = trio_data['confidence']
-                else:
-                    count = trio_data
-                    confidence = 50.0
+    def _get_ranked_forward_lines(self, team_data):
+        """Get forward lines ranked by points"""
+        lines = []
 
-                if count >= 1:
+        # Get all trios with goals > 0
+        if team_data['even_strength_f_trios']:
+            for trio_key, stats in team_data['even_strength_f_trios'].items():
+                if stats['goals'] > 0:
                     players = []
                     for player_id in trio_key:
                         if player_id in team_data['player_positions']:
                             players.append(team_data['player_positions'][player_id])
 
                     if len(players) == 3:
-                        trio_candidates.append({
+                        lines.append({
                             'players': players,
-                            'player_ids': set(trio_key),
-                            'count': count,
-                            'confidence': confidence,
-                            'is_trio': True
+                            'goals': stats['goals'],
+                            'assists': stats['assists'],
+                            'points': stats['points'],
+                            'type': 'trio'
                         })
 
-        pair_candidates = []
+        # Get forward pairs with goals > 0 (to show as incomplete trios)
         if team_data['even_strength_f_pairs']:
-            for pair_key, pair_data in team_data['even_strength_f_pairs'].items():
-                count = pair_data if isinstance(pair_data, int) else pair_data['count']
-                if count >= 2:
+            for pair_key, stats in team_data['even_strength_f_pairs'].items():
+                if stats['goals'] > 0:
                     players = []
                     for player_id in pair_key:
                         if player_id in team_data['player_positions']:
                             players.append(team_data['player_positions'][player_id])
 
                     if len(players) == 2:
-                        pair_candidates.append({
+                        lines.append({
                             'players': players,
-                            'player_ids': set(pair_key),
-                            'count': count,
-                            'confidence': min(100, count * 20),
-                            'is_trio': False
+                            'goals': stats['goals'],
+                            'assists': stats['assists'],
+                            'points': stats['points'],
+                            'type': 'pair'
                         })
 
-        all_candidates = trio_candidates + pair_candidates
-        all_candidates.sort(key=lambda x: x['count'], reverse=True)
+        # Sort by goals descending
+        lines.sort(key=lambda x: x['goals'], reverse=True)
 
-        assigned_lines = []
-        used_players = set()
+        # Add rank (F1, F2, F3, etc.)
+        ranked_lines = []
+        for i, line in enumerate(lines[:3]):  # Top 3 lines
+            line['rank'] = f"F{i + 1}"
+            ranked_lines.append(line)
 
-        for candidate in all_candidates:
-            if not candidate['player_ids'].intersection(used_players):
-                assigned_lines.append({
-                    'players': candidate['players'],
-                    'count': candidate['count'],
-                    'confidence': candidate['confidence'],
-                    'type': 'Trio' if candidate['is_trio'] else 'Duo'
-                })
-                used_players.update(candidate['player_ids'])
+        return ranked_lines
 
-                if len(assigned_lines) >= 4:
-                    break
+    def _get_ranked_defense_pairs(self, team_data):
+        """Get defense pairs ranked by goals"""
+        pairs = []
 
-        return assigned_lines
-
-    def _get_optimal_defense_pairs(self, team_data):
-        """Get optimal defense pair combinations"""
-        pair_candidates = []
+        # Get all defense pairs with goals > 0
         if team_data['even_strength_d_duos']:
-            for pair_key, pair_data in team_data['even_strength_d_duos'].items():
-                if isinstance(pair_data, dict):
-                    count = pair_data['count']
-                    confidence = pair_data['confidence']
-                else:
-                    count = pair_data
-                    confidence = 50.0
-
-                if count >= 1:
+            for pair_key, stats in team_data['even_strength_d_duos'].items():
+                if stats['goals'] > 0:
                     players = []
                     for player_id in pair_key:
                         if player_id in team_data['player_positions']:
                             players.append(team_data['player_positions'][player_id])
 
                     if len(players) == 2:
-                        pair_candidates.append({
+                        pairs.append({
                             'players': players,
-                            'player_ids': set(pair_key),
-                            'count': count,
-                            'confidence': confidence
+                            'goals': stats['goals'],
+                            'assists': stats['assists'],
+                            'points': stats['points']
                         })
 
-        pair_candidates.sort(key=lambda x: x['count'], reverse=True)
+        # Sort by goals descending
+        pairs.sort(key=lambda x: x['goals'], reverse=True)
 
-        assigned_pairs = []
-        used_players = set()
+        # Add rank (D1, D2, etc.)
+        ranked_pairs = []
+        for i, pair in enumerate(pairs[:2]):  # Top 2 pairs
+            pair['rank'] = f"D{i + 1}"
+            ranked_pairs.append(pair)
 
-        for candidate in pair_candidates:
-            if not candidate['player_ids'].intersection(used_players):
-                assigned_pairs.append({
-                    'players': candidate['players'],
-                    'count': candidate['count'],
-                    'confidence': candidate['confidence']
-                })
-                used_players.update(candidate['player_ids'])
+        return ranked_pairs
 
-                if len(assigned_pairs) >= 3:
-                    break
-
-        return assigned_pairs
-
-    def _get_special_teams_units(self, team_data, unit_type):
-        """Get special teams units"""
+    def _get_ranked_powerplay_units(self, team_data):
+        """Get powerplay units ranked by goals"""
         units = []
-        if team_data[unit_type]:
-            sorted_units = sorted(
-                team_data[unit_type].items(),
-                key=lambda x: x[1],
-                reverse=True
-            )[:3]
 
-            for unit_key, count in sorted_units:
-                if count >= 1:
+        # Get all PP units with goals > 0
+        if team_data['powerplay_units']:
+            for unit_key, stats in team_data['powerplay_units'].items():
+                if stats['goals'] > 0:
                     players = []
                     for player_id in unit_key:
                         if player_id in team_data['player_positions']:
                             players.append(team_data['player_positions'][player_id])
 
-                    if len(players) >= 2:
+                    if len(players) >= 2:  # At least 2 players
                         units.append({
                             'players': players,
-                            'count': count,
-                            'confidence': min(100, count * 20)
+                            'goals': stats['goals'],
+                            'assists': stats['assists'],
+                            'points': stats['points']
                         })
 
-        return units
+        # Sort by goals descending
+        units.sort(key=lambda x: x['goals'], reverse=True)
+
+        # Add rank (PP1, PP2, etc.)
+        ranked_units = []
+        for i, unit in enumerate(units[:3]):  # Top 3 units
+            unit['rank'] = f"PP{i + 1}"
+            ranked_units.append(unit)
+
+        return ranked_units
+
+    def _get_ranked_penalty_kill_units(self, team_data):
+        """Get penalty kill units ranked by goals"""
+        units = []
+
+        # Get all PK units with goals > 0
+        if team_data['penalty_kill_units']:
+            for unit_key, stats in team_data['penalty_kill_units'].items():
+                if stats['goals'] > 0:
+                    players = []
+                    for player_id in unit_key:
+                        if player_id in team_data['player_positions']:
+                            players.append(team_data['player_positions'][player_id])
+
+                    if len(players) >= 2:  # At least 2 players
+                        units.append({
+                            'players': players,
+                            'goals': stats['goals'],
+                            'assists': stats['assists'],
+                            'points': stats['points']
+                        })
+
+        # Sort by goals descending
+        units.sort(key=lambda x: x['goals'], reverse=True)
+
+        # Add rank (PK1, PK2, etc.)
+        ranked_units = []
+        for i, unit in enumerate(units[:3]):  # Top 3 units
+            unit['rank'] = f"PK{i + 1}"
+            ranked_units.append(unit)
+
+        return ranked_units
 
     def export_formations(self, output_file):
         """Export formations to JSON file"""
@@ -1137,9 +1381,9 @@ def main():
     args = parser.parse_args()
 
     # Configuration
-    games_dir = "/home/mderaspe/projects/hockey/lheq-stats/games"
-    web_dir = "/home/mderaspe/projects/hockey/lheq-stats/web"
-    gamesheet_dir = "gamesheets"
+    games_dir = "web/data/games"
+    web_dir = "web"
+    gamesheet_dir = "web/data/gamesheets"
 
     print("=" * 70)
     print("LHEQ HOCKEY STATISTICS COMPILER")
@@ -1155,7 +1399,7 @@ def main():
             print("STEP 1: PARSING STARTING GOALIES FROM PDF GAMESHEETS")
             print("=" * 70)
             try:
-                parser = StartingGoalieParser(gamesheet_dir)
+                parser = StartingGoalieParser(gamesheet_dir, games_dir)
                 parser.parse_all_gamesheets()
                 print("✓ Starting goalie parsing completed")
             except Exception as e:

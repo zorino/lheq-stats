@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du Match - LHEQ Statistics</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>LHEQ Statistics</h1>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Accueil</a>
+                <a href="teams.html" class="nav-link">Équipes</a>
+                <a href="players.html" class="nav-link">Joueurs</a>
+                <a href="games.html" class="nav-link">Matchs</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="game-header">
+                <button onclick="history.back()" class="back-btn">← Retour</button>
+                <div class="game-score-card" id="game-score-card">
+                    <!-- Game header will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="game-content">
+                <div class="game-actions">
+                    <button id="download-gamesheet" class="btn btn-primary">
+                        📄 Télécharger la Feuille de Match
+                    </button>
+                    <a id="view-original" href="#" target="_blank" class="btn btn-secondary">
+                        🔗 Voir sur LHEQ.ca
+                    </a>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="showTab('summary')">Résumé</button>
+                    <button class="tab-btn" onclick="showTab('goals')">Buts</button>
+                    <button class="tab-btn" onclick="showTab('penalties')">Pénalités</button>
+                </div>
+
+                <div id="summary-tab" class="tab-content active">
+                    <div class="period-scores">
+                        <h3>Score par période</h3>
+                        <table class="period-table">
+                            <thead>
+                                <tr>
+                                    <th>Équipe</th>
+                                    <th>1ère</th>
+                                    <th>2e</th>
+                                    <th>3e</th>
+                                    <th>Prol.</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="period-scores-body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="goals-tab" class="tab-content">
+                    <div class="goals-list" id="goals-list">
+                        <!-- Goals will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div id="penalties-tab" class="tab-content">
+                    <div class="penalties-list" id="penalties-list">
+                        <!-- Penalties will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 LHEQ Statistics. Données compilées automatiquement.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/game-detail.js"></script>
+</body>
+</html>

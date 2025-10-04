@@ -21,7 +21,7 @@
     "id": 614746,
     "date": "2025-09-13",
     "home_team": "CONQUÉRANTS",
-    "away_team": "INTREPIDE",
+    "away_team": "INTREPIDE OUTAOUAIS",
     "home_score": 4,
     "away_score": 5,
     "status": "FINAL"
@@ -128,10 +128,19 @@
   {
     "id": 614758,
     "date": "2025-09-14",
-    "home_team": "INTREPIDE",
+    "home_team": "INTREPIDE OUTAOUAIS",
     "away_team": "SÉLECTS",
     "home_score": 1,
     "away_score": 9,
+    "status": "FINAL"
+  },
+  {
+    "id": 614759,
+    "date": "2025-09-14",
+    "home_team": "ESPOIR SAGUENAY LAC ST-JEAN",
+    "away_team": "AS QUÉBEC",
+    "home_score": 3,
+    "away_score": 4,
     "status": "FINAL"
   },
   {
@@ -371,7 +380,7 @@
   {
     "id": 618286,
     "date": "2025-09-27",
-    "home_team": "INTREPIDE",
+    "home_team": "INTREPIDE OUTAOUAIS",
     "away_team": "CONQUÉRANTS",
     "home_score": 6,
     "away_score": 4,
@@ -380,7 +389,7 @@
   {
     "id": 618290,
     "date": "2025-09-28",
-    "home_team": "INTREPIDE",
+    "home_team": "INTREPIDE OUTAOUAIS",
     "away_team": "SEIGNEURS DES MILLE-ILES",
     "home_score": 1,
     "away_score": 3,
@@ -389,7 +398,7 @@
   {
     "id": 618291,
     "date": "2025-09-21",
-    "home_team": "INTREPIDE",
+    "home_team": "INTREPIDE OUTAOUAIS",
     "away_team": "CONQUÉRANTS",
     "home_score": 3,
     "away_score": 1,
@@ -399,7 +408,7 @@
     "id": 618333,
     "date": "2025-09-20",
     "home_team": "SEIGNEURS DES MILLE-ILES",
-    "away_team": "INTREPIDE",
+    "away_team": "INTREPIDE OUTAOUAIS",
     "home_score": 2,
     "away_score": 1,
     "status": "FINAL"

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matchs - LHEQ Statistics</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>LHEQ Statistics</h1>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Accueil</a>
+                <a href="teams.html" class="nav-link">Équipes</a>
+                <a href="players.html" class="nav-link">Joueurs</a>
+                <a href="games.html" class="nav-link active">Matchs</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="page-header">
+                <h2>Tous les Matchs</h2>
+                <div class="filters">
+                    <select id="team-filter" class="filter-select">
+                        <option value="">Toutes les équipes</option>
+                    </select>
+                    <select id="division-filter" class="filter-select">
+                        <option value="">Toutes les divisions</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="games-table" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Équipe Visiteur</th>
+                            <th>Score</th>
+                            <th>Équipe Domicile</th>
+                            <th>Statut</th>
+                            <th>Division</th>
+                        </tr>
+                    </thead>
+                    <tbody id="games-table-body">
+                        <!-- Games will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="loading" id="loading">
+                Chargement des matchs...
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 LHEQ Statistics. Données compilées automatiquement.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple test script
+        console.log('Simple games page loaded');
+        document.getElementById('loading').innerHTML = 'Page de test chargée - les données ne sont pas encore affichées.';
+    </script>
+</body>
+</html>

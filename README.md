@@ -32,6 +32,8 @@ Complete web application for the Ligue de Hockey d'Excellence du Québec (LHEQ),
 - `web/data/games.json` - Game results and scores
 - `web/data/divisions.json` - Division organization and team mappings
 - `web/data/formations.json` - Probable line combinations by team
+- `web/data/games/` - Individual game JSON files with detailed statistics
+- `web/data/gamesheets/` - Downloaded PDF gamesheets for each game
 - `starting_goalies.json` - Starting goalie data extracted from game sheets
 
 ## Usage
@@ -53,7 +55,7 @@ python lheq_stats.py
 
 The unified statistics compiler automatically runs all processing steps in the correct order:
 
-1. **Parse Starting Goalies** - Extracts starting goalie info from PDF gamesheets using OCR
+1. **Parse Starting Goalies** - Extracts starting goalie info from PDF gamesheets using Gemini AI
 2. **Compile Statistics** - Processes game data to generate team and player statistics
 3. **Assign Divisions** - Maps teams to divisions using fuzzy string matching
 4. **Analyze Formations** - Determines probable line combinations from goals/assists data
@@ -106,14 +108,13 @@ For detailed workflow information, see [WORKFLOW.md](WORKFLOW.md).
 
 ### Python Packages
 ```bash
-pip install selenium beautifulsoup4 webdriver-manager pandas requests
-pip install pdf2image pytesseract pillow
-pip install playwright
+pip install requests
 ```
 
 ### System Dependencies
-- Tesseract OCR (for game sheet parsing)
-- Poppler (for PDF to image conversion)
+- **Gemini AI CLI** (for game sheet parsing) - Install from [Google AI Studio](https://ai.google.dev/)
+  - Required for extracting starting goalie information from PDF gamesheets
+  - Uses the `gemini` command-line tool with French language prompts
 
 ## Divisions
 
@@ -154,13 +155,9 @@ The LHEQ is organized into three divisions:
 
 ### Game Sheet Parsing
 - PDF game sheets accessed via: `https://pdf.play.spordle.com/game/{GAME_ID}?locale=fr`
-- OCR used to extract starting goalie information
-- Starting goalies identified by "*" marker next to their name
-- Multiple regex patterns handle various formatting (e.g., "ANTOINE LÉTOURNEAU *", "35/ANTOINE LETOURNEAU * G")
-
-### Name Normalization
-- Accent-insensitive matching for player names
-- Handles differences between OCR output and roster data (e.g., "LETOURNEAU" vs "LÉTOURNEAU")
+- Gemini AI used to extract starting goalie information from PDFs
+- Starting goalies identified by "*" marker next to their name in the gamesheet
+- French language prompts ensure accurate extraction: "extrait moi les gardiens partant du pdf suivant"
 
 ### Statistics Calculation
 - **Team Points**: 2 points for win, 1 point for tie, 0 for loss

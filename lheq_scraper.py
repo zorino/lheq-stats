@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import json
+import os
 import requests
 import urllib.parse
 from datetime import datetime
@@ -17,8 +18,8 @@ class FinalWorkingLHEQScraper:
 
         # Create directories for outputs
         import os
-        os.makedirs("gamesheets", exist_ok=True)
-        os.makedirs("games", exist_ok=True)
+        os.makedirs("web/data/gamesheets", exist_ok=True)
+        os.makedirs("web/data/games", exist_ok=True)
         os.makedirs("logs", exist_ok=True)
 
     def build_api_url(self, start_date, end_date, skip=0):
@@ -183,18 +184,20 @@ class FinalWorkingLHEQScraper:
             print(f"⚠️ Error fetching game details for game {game_id}: {e}")
             return None
 
-    def download_gamesheet_pdf(self, game_id, away_team, home_team):
+    def download_gamesheet_pdf(self, game_id):
         """Download the PDF gamesheet for a completed game"""
+        filename = f"web/data/gamesheets/game_{game_id}.pdf"
+
+        # Check if PDF already exists
+        if os.path.exists(filename):
+            print(f"📄 PDF already exists: {filename}")
+            return filename
+
         pdf_url = f"https://pdf.play.spordle.com/game/{game_id}?locale=fr"
 
         try:
             response = requests.get(pdf_url, headers=self.headers, timeout=30)
             response.raise_for_status()
-
-            # Create safe filename
-            safe_away = away_team.replace(' ', '_').replace('/', '_').replace('\\', '_')
-            safe_home = home_team.replace(' ', '_').replace('/', '_').replace('\\', '_')
-            filename = f"gamesheets/game_{game_id}_{safe_away}_vs_{safe_home}.pdf"
 
             with open(filename, 'wb') as f:
                 f.write(response.content)
@@ -209,11 +212,7 @@ class FinalWorkingLHEQScraper:
     def save_individual_game_file(self, game_data):
         """Save individual game data to a JSON file"""
         game_id = game_data.get('id')
-        away_team = game_data.get('away_team', 'Unknown').replace(' ', '_').replace('/', '_').replace('\\', '_')
-        home_team = game_data.get('home_team', 'Unknown').replace(' ', '_').replace('/', '_').replace('\\', '_')
-        date = game_data.get('date', 'unknown')
-
-        filename = f"games/game_{game_id}_{date}_{away_team}_vs_{home_team}.json"
+        filename = f"web/data/games/game_{game_id}.json"
 
         try:
             with open(filename, 'w', encoding='utf-8') as f:
@@ -224,17 +223,86 @@ class FinalWorkingLHEQScraper:
             print(f"   ⚠️ Error saving game file: {e}")
             return None
 
+    def game_already_exists(self, game_id):
+        """Check if game file already exists"""
+        filename = f"web/data/games/game_{game_id}.json"
+        return os.path.exists(filename)
+
+    def extract_starting_goalies(self, pdf_filename):
+        """Extract starting goalies using Gemini AI"""
+        import subprocess
+        import json
+
+        try:
+            # Get the absolute path for the PDF
+            abs_pdf_path = os.path.abspath(pdf_filename)
+
+            # Construct the Gemini command
+            command = [
+                "gemini", "flash",
+                "Extract starting goalies from this hockey gamesheet. Note that the starting goalie has an asterisk after his name. Return a JSON with home_goalie and away_goalie containing the goalie names only. Format your response with only: {\"home_goalie\": \"NAME\", \"away_goalie\": \"NAME\"}",
+                abs_pdf_path
+            ]
+
+            # Execute command with timeout
+            result = subprocess.run(
+                command,
+                capture_output=True,
+                text=True,
+                timeout=30,
+                cwd=os.getcwd()
+            )
+
+            if result.returncode == 0:
+                output = result.stdout.strip()
+
+                # Remove markdown code blocks if present
+                if output.startswith('```json'):
+                    output = output.replace('```json', '').replace('```', '').strip()
+                elif output.startswith('```'):
+                    output = output.replace('```', '').strip()
+
+                # Parse JSON response
+                try:
+                    goalies_data = json.loads(output)
+                    if isinstance(goalies_data, dict) and 'home_goalie' in goalies_data and 'away_goalie' in goalies_data:
+                        return goalies_data
+                    else:
+                        print(f"  Invalid JSON structure from Gemini: {goalies_data}")
+                        return None
+                except json.JSONDecodeError as e:
+                    print(f"  Failed to parse Gemini JSON response: {e}")
+                    print(f"  Raw output: {output}")
+                    return None
+            else:
+                print(f"  Gemini command failed: {result.stderr}")
+                return None
+
+        except subprocess.TimeoutExpired:
+            print(f"  Gemini command timed out for {pdf_filename}")
+            return None
+        except Exception as e:
+            print(f"  Error extracting goalies with Gemini: {e}")
+            return None
+
     def process_games(self, api_games, fetch_detailed_stats=True):
         """Process games from API data with optional detailed stats fetching"""
         print(f"🔄 Processing {len(api_games)} games from API...")
 
         final_games = []
         scheduled_games = []
+        skipped_count = 0
 
         for i, game in enumerate(api_games, 1):
             try:
                 game_id = game.get('id')
                 status = game.get('status', '').upper()
+
+                # Check if game already exists
+                if self.game_already_exists(game_id):
+                    print(f"⏭️ [{i}/{len(api_games)}] Game {game_id} already exists - skipping")
+                    skipped_count += 1
+                    continue
 
                 # Extract team information
                 home_team = game.get('homeTeam', {})
@@ -298,9 +366,17 @@ class FinalWorkingLHEQScraper:
                             print(f"   ✅ Away team roster fetched ({len(away_members)} members)")
 
                     # Download PDF gamesheet
-                    pdf_filename = self.download_gamesheet_pdf(game_id, away_team_name, home_team_name)
+                    pdf_filename = self.download_gamesheet_pdf(game_id)
                     if pdf_filename:
                         processed_game['gamesheet_pdf_file'] = pdf_filename
+
+                        # Extract starting goalies using Gemini AI
+                        starting_goalies = self.extract_starting_goalies(pdf_filename)
+                        if starting_goalies:
+                            processed_game['starting_goalies'] = starting_goalies
+                            print(f"   🥅 Starting goalies extracted")
+                        else:
+                            print(f"   ❌ Could not extract starting goalies")
 
                 # Save individual game file
                 individual_file = self.save_individual_game_file(processed_game)
@@ -319,10 +395,11 @@ class FinalWorkingLHEQScraper:
                 continue
 
         print(f"\n📊 SUMMARY:")
+        print(f"   ⏭️ SKIPPED games: {skipped_count}")
         print(f"   ✅ FINAL games: {len(final_games)}")
         print(f"   📅 SCHEDULED games: {len(scheduled_games)}")
 
-        return final_games, scheduled_games
+        return final_games, scheduled_games, skipped_count
 
     def run(self, start_date=None, end_date=None, fetch_detailed_stats=True):
         """Fetch games for a specified date range"""
@@ -349,7 +426,7 @@ class FinalWorkingLHEQScraper:
                 return
 
             # Process games
-            final_games, scheduled_games = self.process_games(api_games, fetch_detailed_stats)
+            final_games, scheduled_games, skipped_count = self.process_games(api_games, fetch_detailed_stats)
 
             # Combine all games
             all_games = final_games + scheduled_games
@@ -374,6 +451,7 @@ class FinalWorkingLHEQScraper:
 
             print(f"\n🏆 API SCRAPING COMPLETE!")
             print(f"📊 Total games found: {len(all_games)}")
+            print(f"⏭️ Games skipped (already processed): {skipped_count}")
             print(f"✅ Final games: {len(final_games)}")
             print(f"📅 Scheduled games: {len(scheduled_games)}")
             print(f"💾 Results saved to: {filename}")
@@ -411,11 +489,11 @@ class FinalWorkingLHEQScraper:
                 if len(final_games) > 3:
                     print(f"   ... and {len(final_games) - 3} more games")
 
-            return final_games, scheduled_games
+            return final_games, scheduled_games, skipped_count
 
         except Exception as e:
             print(f"❌ Scraper error: {e}")
-            return [], []
+            return [], [], 0
 
 if __name__ == "__main__":
     import sys

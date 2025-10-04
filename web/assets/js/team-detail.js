@@ -266,6 +266,12 @@ class TeamDetailPage {
             <td><strong>${teamScore}-${opponentScore}</strong></td>
         `;
 
+        // Make the row clickable to navigate to game detail
+        row.style.cursor = 'pointer';
+        row.addEventListener('click', () => {
+            window.location.href = `game-detail.html?id=${game.id}`;
+        });
+
         return row;
     }
 
@@ -306,8 +312,8 @@ class TeamDetailPage {
             return; // Keep default "no data" messages
         }
 
-        this.renderForwardLines(teamFormations.f_lines || []);
-        this.renderDefensePairs(teamFormations.d_pairs || []);
+        this.renderForwardLines(teamFormations.forward_lines || []);
+        this.renderDefensePairs(teamFormations.defense_pairs || []);
         this.renderPowerplayUnits(teamFormations.powerplay_units || []);
     }
 
@@ -328,32 +334,23 @@ class TeamDetailPage {
             let playersHtml;
             let lineLabel;
 
-            if (line.players.length === 3) {
-                // Full trio
-                playersHtml = line.players.map(player =>
-                    `<span class="player-name">${player.number ? '#' + player.number + ' ' : ''}${player.name}</span>`
-                ).join(' • ');
-                lineLabel = `Trio ${index + 1}`;
-            } else if (line.players.length === 2) {
-                // Duo with unknown player - but call it Trio since we show the ?
-                playersHtml = line.players.map(player =>
-                    `<span class="player-name">${player.number ? '#' + player.number + ' ' : ''}${player.name}</span>`
-                ).join(' • ') + ' • <span class="unknown-player">?</span>';
-                lineLabel = `Trio ${index + 1}`;
-            } else {
-                // Other formations
-                playersHtml = line.players.map(player =>
-                    `<span class="player-name">${player.number ? '#' + player.number + ' ' : ''}${player.name}</span>`
-                ).join(' • ');
-                lineLabel = `Ligne ${index + 1}`;
+            // Use the rank from the data or fallback to index
+            lineLabel = line.rank || `F${index + 1}`;
+
+            playersHtml = line.players.map(player =>
+                `<span class="player-name">${player.number ? '#' + player.number + ' ' : ''}${player.name}</span>`
+            ).join(' • ');
+
+            // Add ? for missing players if it's a pair
+            if (line.type === 'pair' && line.players.length === 2) {
+                playersHtml += ' • <span class="unknown-player">?</span>';
             }
 
             lineCard.innerHTML = `
                 <div class="formation-header">
-                    <h5>${lineLabel} (Trio)</h5>
+                    <h5>${lineLabel}</h5>
                     <div class="formation-stats">
-                        <span class="formation-count">${line.count} buts</span>
-                        <span class="formation-confidence">${line.confidence}% confiance</span>
+                        <span class="formation-count">${line.goals || 0} buts</span>
                     </div>
                 </div>
                 <div class="formation-players">
@@ -383,12 +380,13 @@ class TeamDetailPage {
                 `<span class="player-name">${player.number ? '#' + player.number + ' ' : ''}${player.name}</span>`
             ).join(' • ');
 
+            const pairLabel = pair.rank || `Paire ${index + 1}`;
+
             pairCard.innerHTML = `
                 <div class="formation-header">
-                    <h5>Paire ${index + 1}</h5>
+                    <h5>${pairLabel}</h5>
                     <div class="formation-stats">
-                        <span class="formation-count">${pair.count} buts</span>
-                        <span class="formation-confidence">${pair.confidence}% confiance</span>
+                        <span class="formation-count">${pair.goals || 0} buts</span>
                     </div>
                 </div>
                 <div class="formation-players">
@@ -412,18 +410,26 @@ class TeamDetailPage {
 
         units.forEach((unit, index) => {
             const unitCard = document.createElement('div');
-            unitCard.className = 'formation-card special-teams';
+            unitCard.className = 'formation-card';
 
-            const playersHtml = unit.players.map(player =>
+            let playersHtml = unit.players.map(player =>
                 `<span class="player-name">${player.number ? '#' + player.number + ' ' : ''}${player.name} (${player.position})</span>`
             ).join(' • ');
 
+            // Add ? for missing players if unit has less than 5 players
+            const missingPlayers = 5 - unit.players.length;
+            if (missingPlayers > 0) {
+                const questionMarks = Array(missingPlayers).fill('<span class="unknown-player">?</span>').join(' • ');
+                playersHtml += ' • ' + questionMarks;
+            }
+
+            const unitLabel = unit.rank || `PP ${index + 1}`;
+
             unitCard.innerHTML = `
                 <div class="formation-header">
-                    <h5>PP ${index + 1}</h5>
+                    <h5>${unitLabel}</h5>
                     <div class="formation-stats">
-                        <span class="formation-count">${unit.count} buts</span>
-                        <span class="formation-confidence">${unit.confidence}% confiance</span>
+                        <span class="formation-count">${unit.goals || 0} buts</span>
                     </div>
                 </div>
                 <div class="formation-players">
@@ -699,6 +705,14 @@ style.textContent = `
         font-weight: bold;
     }
 
+    .formation-assists {
+        background: #ffc107;
+        color: #212529;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-weight: bold;
+    }
+
     .formation-confidence {
         background: #28a745;
         color: white;
@@ -714,6 +728,12 @@ style.textContent = `
 
     .player-name {
         font-weight: bold;
+    }
+
+    .unknown-player {
+        color: #999;
+        font-style: italic;
+        font-weight: normal;
     }
 
     .no-data {
