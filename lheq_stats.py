@@ -349,7 +349,9 @@ class HockeyStatsCompiler:
         for game in self.games:
             for roster_key in ['home_team_roster', 'away_team_roster']:
                 for player in game.get(roster_key, []):
-                    player_id = player['participantId']
+                    player_id = player.get('participantId')
+                    if not player_id:
+                        continue
                     positions = player.get('positions', ['F'])
                     position = positions[0] if positions else 'F'
 
@@ -443,13 +445,21 @@ class HockeyStatsCompiler:
         for player in roster:
             player_positions = player.get('positions', [])
             if 'G' in player_positions:
+                participant = player.get('participant', {})
+                player_id = player.get('participantId')
+                player_name = participant.get('fullName')
+
+                # Skip if missing essential data
+                if not player_id or not player_name:
+                    continue
+
                 number = player.get('number')
                 # Handle invalid/missing numbers
                 if number is None or number == 0:
                     number = 999  # Put at end
                 goalies.append({
-                    'name': player['participant']['fullName'],
-                    'id': player['participantId'],
+                    'name': player_name,
+                    'id': player_id,
                     'number': number
                 })
 
@@ -487,7 +497,7 @@ class HockeyStatsCompiler:
             return self.player_positions[player_id]
 
         for player in boxscore.get('roster', []):
-            if player['participantId'] == player_id:
+            if player.get('participantId') == player_id:
                 positions = player.get('positions', ['F'])
                 return positions[0] if positions else 'F'
         return 'F'
@@ -655,9 +665,14 @@ class HockeyStatsCompiler:
 
             # Process goals
             for goal in boxscore.get('goals', []):
-                scorer_id = goal['participant']['participantId']
-                scorer_name = goal['participant']['fullName']
-                team_id = goal['teamId']
+                participant = goal.get('participant', {})
+                scorer_id = participant.get('participantId')
+                scorer_name = participant.get('fullName')
+                team_id = goal.get('teamId')
+
+                # Skip if missing essential data
+                if not scorer_id or not team_id:
+                    continue
 
                 position = self.get_player_position(boxscore, scorer_id)
                 if position == 'C':
@@ -685,8 +700,12 @@ class HockeyStatsCompiler:
 
                 # Process assists
                 for assist in goal.get('assists', []):
-                    assist_id = assist['participantId']
-                    assist_name = assist['fullName']
+                    assist_id = assist.get('participantId')
+                    assist_name = assist.get('fullName')
+
+                    # Skip if missing essential data
+                    if not assist_id:
+                        continue
 
                     position = self.get_player_position(boxscore, assist_id)
                     if position == 'C':
@@ -707,12 +726,14 @@ class HockeyStatsCompiler:
 
             # Process penalties
             for penalty in boxscore.get('penalties', []):
-                if 'participant' not in penalty or 'participantId' not in penalty['participant']:
-                    continue
+                participant = penalty.get('participant', {})
+                player_id = participant.get('participantId')
+                player_name = participant.get('fullName')
+                team_id = penalty.get('teamId')
 
-                player_id = penalty['participant']['participantId']
-                player_name = penalty['participant']['fullName']
-                team_id = penalty['teamId']
+                # Skip if missing essential data
+                if not player_id or not team_id:
+                    continue
 
                 duration_name = penalty.get('duration', {}).get('name', '')
                 if 'Minor' in duration_name or 'Mineure' in duration_name:
@@ -738,8 +759,14 @@ class HockeyStatsCompiler:
 
             # Process rosters for goalie stats
             for player in game.get('home_team_roster', []):
-                player_id = player['participantId']
-                player_name = player['participant']['fullName']
+                participant = player.get('participant', {})
+                player_id = player.get('participantId')
+                player_name = participant.get('fullName')
+
+                # Skip if missing essential data
+                if not player_id or not player_name:
+                    continue
+
                 team_id = home_team_id
                 position = self.get_player_position(boxscore, player_id)
 
@@ -765,8 +792,14 @@ class HockeyStatsCompiler:
                     self.players[player_id]['goals_against'] += away_score
 
             for player in game.get('away_team_roster', []):
-                player_id = player['participantId']
-                player_name = player['participant']['fullName']
+                participant = player.get('participant', {})
+                player_id = player.get('participantId')
+                player_name = participant.get('fullName')
+
+                # Skip if missing essential data
+                if not player_id or not player_name:
+                    continue
+
                 team_id = away_team_id
                 position = self.get_player_position(boxscore, player_id)
 
@@ -1066,7 +1099,9 @@ class FormationDetector:
             team_id = home_team_id if roster_key == 'home_team_roster' else away_team_id
 
             for player in game.get(roster_key, []):
-                player_id = player['participantId']
+                player_id = player.get('participantId')
+                if not player_id:
+                    continue
                 positions = player.get('positions', ['F'])
                 position = positions[0] if positions else 'F'
 
@@ -1076,8 +1111,11 @@ class FormationDetector:
                 if position == 'C':
                     position = 'F'
 
+                participant = player.get('participant', {})
+                player_name = participant.get('fullName', 'Unknown')
+
                 self.team_formations[team_id]['player_positions'][player_id] = {
-                    'name': player['participant']['fullName'],
+                    'name': player_name,
                     'position': position,
                     'number': player.get('number')
                 }
@@ -1092,10 +1130,19 @@ class FormationDetector:
                 continue
 
             players_involved = []
-            players_involved.append(goal['participant']['participantId'])
+            participant = goal.get('participant', {})
+            scorer_id = participant.get('participantId')
+
+            # Skip if no scorer
+            if not scorer_id:
+                continue
+
+            players_involved.append(scorer_id)
 
             for assist in goal.get('assists', []):
-                players_involved.append(assist['participantId'])
+                assist_id = assist.get('participantId')
+                if assist_id:
+                    players_involved.append(assist_id)
 
             self._detect_formations_in_goal(team_id, players_involved, goal)
 
@@ -1141,6 +1188,12 @@ class FormationDetector:
         assist_points = len(goal.get('assists', []))
         total_points = goal_points + assist_points
 
+        # Get scorer ID safely
+        participant = goal.get('participant', {})
+        scorer_id = participant.get('participantId')
+        if not scorer_id:
+            return
+
         if len(forwards) >= 3:
             for trio in combinations(forwards, 3):
                 trio_key = tuple(sorted([p['id'] for p in trio]))
@@ -1149,15 +1202,14 @@ class FormationDetector:
                 involved_players = set()
 
                 # Add scorer if in trio
-                scorer_id = goal['participant']['participantId']
                 if scorer_id in trio_ids:
                     involved_players.add(scorer_id)
                     team_data['even_strength_f_trios'][trio_key]['goals'] += 1
 
                 # Add assists if in trio
                 for assist in goal.get('assists', []):
-                    assist_id = assist['participantId']
-                    if assist_id in trio_ids:
+                    assist_id = assist.get('participantId')
+                    if assist_id and assist_id in trio_ids:
                         involved_players.add(assist_id)
                         team_data['even_strength_f_trios'][trio_key]['assists'] += 1
 
@@ -1175,15 +1227,14 @@ class FormationDetector:
                 involved_players = set()
 
                 # Add scorer if in pair
-                scorer_id = goal['participant']['participantId']
                 if scorer_id in pair_ids:
                     involved_players.add(scorer_id)
                     team_data['even_strength_f_pairs'][pair_key]['goals'] += 1
 
                 # Add assists if in pair
                 for assist in goal.get('assists', []):
-                    assist_id = assist['participantId']
-                    if assist_id in pair_ids:
+                    assist_id = assist.get('participantId')
+                    if assist_id and assist_id in pair_ids:
                         involved_players.add(assist_id)
                         team_data['even_strength_f_pairs'][pair_key]['assists'] += 1
 
@@ -1201,15 +1252,14 @@ class FormationDetector:
                 involved_players = set()
 
                 # Add scorer if in pair
-                scorer_id = goal['participant']['participantId']
                 if scorer_id in pair_ids:
                     involved_players.add(scorer_id)
                     team_data['even_strength_d_duos'][pair_key]['goals'] += 1
 
                 # Add assists if in pair
                 for assist in goal.get('assists', []):
-                    assist_id = assist['participantId']
-                    if assist_id in pair_ids:
+                    assist_id = assist.get('participantId')
+                    if assist_id and assist_id in pair_ids:
                         involved_players.add(assist_id)
                         team_data['even_strength_d_duos'][pair_key]['assists'] += 1
 
@@ -1226,15 +1276,20 @@ class FormationDetector:
         unit_key = tuple(sorted([p['id'] for p in players]))
         unit_ids = set([p['id'] for p in players])
 
+        # Get scorer ID safely
+        participant = goal.get('participant', {})
+        scorer_id = participant.get('participantId')
+        if not scorer_id:
+            return
+
         # Add scorer if in unit
-        scorer_id = goal['participant']['participantId']
         if scorer_id in unit_ids:
             team_data['powerplay_units'][unit_key]['goals'] += 1
 
         # Add assists if in unit
         for assist in goal.get('assists', []):
-            assist_id = assist['participantId']
-            if assist_id in unit_ids:
+            assist_id = assist.get('participantId')
+            if assist_id and assist_id in unit_ids:
                 team_data['powerplay_units'][unit_key]['assists'] += 1
 
         # Update total points
@@ -1249,15 +1304,20 @@ class FormationDetector:
         unit_key = tuple(sorted([p['id'] for p in players]))
         unit_ids = set([p['id'] for p in players])
 
+        # Get scorer ID safely
+        participant = goal.get('participant', {})
+        scorer_id = participant.get('participantId')
+        if not scorer_id:
+            return
+
         # Add scorer if in unit
-        scorer_id = goal['participant']['participantId']
         if scorer_id in unit_ids:
             team_data['penalty_kill_units'][unit_key]['goals'] += 1
 
         # Add assists if in unit
         for assist in goal.get('assists', []):
-            assist_id = assist['participantId']
-            if assist_id in unit_ids:
+            assist_id = assist.get('participantId')
+            if assist_id and assist_id in unit_ids:
                 team_data['penalty_kill_units'][unit_key]['assists'] += 1
 
         # Update total points

@@ -239,9 +239,9 @@ class FinalWorkingLHEQScraper:
 
             # Construct the Gemini command
             command = [
-                "gemini", "flash",
-                "Extract starting goalies from this hockey gamesheet. Note that the starting goalie has an asterisk after his name. Return a JSON with home_goalie and away_goalie containing the goalie names only. Format your response with only: {\"home_goalie\": \"NAME\", \"away_goalie\": \"NAME\"}",
-                abs_pdf_path
+                "gemini",
+                "-m", "gemini-2.5-flash",
+                "-p", f"Extract starting goalies from this hockey gamesheet. Note that the starting goalie has an asterisk after his name. Return a JSON with home_goalie and away_goalie containing the goalie names only. Format your response with only: {{\"home_goalie\": \"NAME\", \"away_goalie\": \"NAME\"}} @{abs_pdf_path}"
             ]
 
             # Execute command with timeout

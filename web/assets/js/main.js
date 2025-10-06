@@ -67,7 +67,7 @@ class DataManager {
     }
 
     getGoalies() {
-        return this.players.filter(player => player.position === 'G');
+        return this.players.filter(player => player.position === 'G' && player.games_played > 0);
     }
 
     getTotalGoals() {
