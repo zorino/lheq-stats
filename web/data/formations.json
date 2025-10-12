@@ -244,7 +244,7 @@
         "points": 6,
         "type": "trio",
         "raw_score": 6,
-        "dominance_score": 31.6,
+        "dominance_score": 26.1,
         "rank": "Line 1"
       },
       {
@@ -270,7 +270,7 @@
         "points": 4,
         "type": "deduced_trio",
         "raw_score": 4,
-        "dominance_score": 21.1,
+        "dominance_score": 17.4,
         "rank": "Line 2"
       },
       {
@@ -296,7 +296,7 @@
         "points": 3,
         "type": "trio",
         "raw_score": 3,
-        "dominance_score": 15.8,
+        "dominance_score": 13.0,
         "rank": "Line 3"
       }
     ],
@@ -351,7 +351,7 @@
         "points": 6,
         "type": "deduced_trio",
         "raw_score": 6,
-        "dominance_score": 37.5,
+        "dominance_score": 33.3,
         "rank": "Line 1"
       },
       {
@@ -367,12 +367,12 @@
             "number": 7
           }
         ],
-        "goals": 1,
-        "assists": 1,
-        "points": 2,
+        "goals": 2,
+        "assists": 2,
+        "points": 4,
         "type": "pair",
-        "raw_score": 2,
-        "dominance_score": 12.5,
+        "raw_score": 4,
+        "dominance_score": 22.2,
         "rank": "Line 2"
       },
       {
@@ -393,7 +393,7 @@
         "points": 2,
         "type": "pair",
         "raw_score": 2,
-        "dominance_score": 12.5,
+        "dominance_score": 11.1,
         "rank": "Line 3"
       }
     ],
@@ -490,8 +490,8 @@
             "number": 19
           }
         ],
-        "goals": 1,
-        "assists": 3,
+        "goals": 2,
+        "assists": 2,
         "points": 4,
         "type": "deduced_trio",
         "raw_score": 4,
@@ -634,29 +634,8 @@
         "points": 6,
         "type": "pair",
         "raw_score": 6,
-        "dominance_score": 42.9,
+        "dominance_score": 30.0,
         "rank": "Line 1"
-      },
-      {
-        "players": [
-          {
-            "name": "HENRI GRAVEL",
-            "position": "F",
-            "number": 39
-          },
-          {
-            "name": "JAYDEN DUMARESQ",
-            "position": "F",
-            "number": 23
-          }
-        ],
-        "goals": 2,
-        "assists": 2,
-        "points": 4,
-        "type": "pair",
-        "raw_score": 4,
-        "dominance_score": 28.6,
-        "rank": "Line 2"
       },
       {
         "players": [
@@ -676,12 +655,33 @@
             "number": 27
           }
         ],
-        "goals": 1,
-        "assists": 1,
-        "points": 2,
+        "goals": 2,
+        "assists": 2,
+        "points": 4,
         "type": "deduced_trio",
-        "raw_score": 2,
-        "dominance_score": 14.3,
+        "raw_score": 4,
+        "dominance_score": 20.0,
+        "rank": "Line 2"
+      },
+      {
+        "players": [
+          {
+            "name": "HENRI GRAVEL",
+            "position": "F",
+            "number": 39
+          },
+          {
+            "name": "JAYDEN DUMARESQ",
+            "position": "F",
+            "number": 23
+          }
+        ],
+        "goals": 2,
+        "assists": 2,
+        "points": 4,
+        "type": "pair",
+        "raw_score": 4,
+        "dominance_score": 20.0,
         "rank": "Line 3"
       }
     ],
@@ -978,6 +978,11 @@
       {
         "players": [
           {
+            "name": "DYLAN LANGEVIN",
+            "position": "F",
+            "number": 94
+          },
+          {
             "name": "THOMAS DELISLE",
             "position": "F",
             "number": 22
@@ -991,9 +996,9 @@
         "goals": 3,
         "assists": 3,
         "points": 6,
-        "type": "pair",
+        "type": "deduced_trio",
         "raw_score": 6,
-        "dominance_score": 14.6,
+        "dominance_score": 15.4,
         "rank": "Line 1"
       },
       {
@@ -1019,7 +1024,7 @@
         "points": 4,
         "type": "deduced_trio",
         "raw_score": 4,
-        "dominance_score": 9.8,
+        "dominance_score": 10.3,
         "rank": "Line 2"
       },
       {
@@ -1040,7 +1045,7 @@
         "points": 4,
         "type": "pair",
         "raw_score": 4,
-        "dominance_score": 9.8,
+        "dominance_score": 10.3,
         "rank": "Line 3"
       }
     ],
@@ -1086,6 +1091,27 @@
       {
         "players": [
           {
+            "name": "ALEX DEROY",
+            "position": "F",
+            "number": 89
+          },
+          {
+            "name": "MAIK FORGET",
+            "position": "F",
+            "number": 14
+          }
+        ],
+        "goals": 2,
+        "assists": 2,
+        "points": 4,
+        "type": "powerplay",
+        "raw_score": 4,
+        "dominance_score": 33.3,
+        "rank": "PP1"
+      },
+      {
+        "players": [
+          {
             "name": "DYLAN LANGEVIN",
             "position": "F",
             "number": 94
@@ -1106,8 +1132,8 @@
         "points": 3,
         "type": "powerplay",
         "raw_score": 3,
-        "dominance_score": 30.0,
-        "rank": "PP1"
+        "dominance_score": 25.0,
+        "rank": "PP2"
       },
       {
         "players": [
@@ -1132,28 +1158,7 @@
         "points": 3,
         "type": "powerplay",
         "raw_score": 3,
-        "dominance_score": 30.0,
-        "rank": "PP2"
-      },
-      {
-        "players": [
-          {
-            "name": "ALEX DEROY",
-            "position": "F",
-            "number": 89
-          },
-          {
-            "name": "MAIK FORGET",
-            "position": "F",
-            "number": 14
-          }
-        ],
-        "goals": 1,
-        "assists": 1,
-        "points": 2,
-        "type": "powerplay",
-        "raw_score": 2,
-        "dominance_score": 20.0,
+        "dominance_score": 25.0,
         "rank": "PP3"
       }
     ],
@@ -1183,22 +1188,27 @@
       {
         "players": [
           {
-            "name": "TRISTAN LEVERT",
+            "name": "FÉLIX LIPPÉ",
             "position": "F",
-            "number": 32
+            "number": 34
           },
           {
-            "name": "SAMUEL LALONGÉ",
+            "name": "DILAN MORIN",
             "position": "F",
-            "number": 28
+            "number": 36
+          },
+          {
+            "name": "KEYDEN OLIN",
+            "position": "F",
+            "number": 37
           }
         ],
-        "goals": 3,
-        "assists": 3,
+        "goals": 2,
+        "assists": 4,
         "points": 6,
-        "type": "pair",
+        "type": "trio",
         "raw_score": 6,
-        "dominance_score": 21.4,
+        "dominance_score": 14.3,
         "rank": "Line 1"
       },
       {
@@ -1214,11 +1224,11 @@
             "number": 37
           }
         ],
-        "goals": 2,
-        "assists": 2,
-        "points": 4,
+        "goals": 3,
+        "assists": 3,
+        "points": 6,
         "type": "pair",
-        "raw_score": 4,
+        "raw_score": 6,
         "dominance_score": 14.3,
         "rank": "Line 2"
       },
@@ -1230,27 +1240,48 @@
             "number": 32
           },
           {
-            "name": "MILAN DROUIN",
-            "position": "F",
-            "number": 27
-          },
-          {
             "name": "SAMUEL LALONGÉ",
             "position": "F",
             "number": 28
           }
         ],
-        "goals": 1,
-        "assists": 2,
-        "points": 3,
-        "type": "trio",
-        "raw_score": 3,
-        "dominance_score": 10.7,
+        "goals": 3,
+        "assists": 3,
+        "points": 6,
+        "type": "pair",
+        "raw_score": 6,
+        "dominance_score": 14.3,
         "rank": "Line 3"
       }
     ],
     "defense_pairs": [],
     "powerplay_units": [
+      {
+        "players": [
+          {
+            "name": "SAMUEL LALONGÉ",
+            "position": "F",
+            "number": 28
+          },
+          {
+            "name": "TRISTAN LEVERT",
+            "position": "F",
+            "number": 32
+          },
+          {
+            "name": "ELLIOT SALVAIL",
+            "position": "D",
+            "number": 24
+          }
+        ],
+        "goals": 1,
+        "assists": 2,
+        "points": 3,
+        "type": "powerplay",
+        "raw_score": 3,
+        "dominance_score": 42.9,
+        "rank": "PP1"
+      },
       {
         "players": [
           {
@@ -1269,8 +1300,8 @@
         "points": 2,
         "type": "powerplay",
         "raw_score": 2,
-        "dominance_score": 50.0,
-        "rank": "PP1"
+        "dominance_score": 28.6,
+        "rank": "PP2"
       },
       {
         "players": [
@@ -1290,8 +1321,8 @@
         "points": 2,
         "type": "powerplay",
         "raw_score": 2,
-        "dominance_score": 50.0,
-        "rank": "PP2"
+        "dominance_score": 28.6,
+        "rank": "PP3"
       }
     ],
     "penalty_kill_units": []
@@ -1316,8 +1347,29 @@
         "points": 4,
         "type": "pair",
         "raw_score": 4,
-        "dominance_score": 16.0,
+        "dominance_score": 14.8,
         "rank": "Line 1"
+      },
+      {
+        "players": [
+          {
+            "name": "ARNAUD FERNET",
+            "position": "F",
+            "number": 66
+          },
+          {
+            "name": "JUSTIN LAMBERT",
+            "position": "F",
+            "number": 18
+          }
+        ],
+        "goals": 2,
+        "assists": 2,
+        "points": 4,
+        "type": "pair",
+        "raw_score": 4,
+        "dominance_score": 14.8,
+        "rank": "Line 2"
       },
       {
         "players": [
@@ -1342,37 +1394,30 @@
         "points": 3,
         "type": "trio",
         "raw_score": 3,
-        "dominance_score": 12.0,
-        "rank": "Line 2"
-      },
-      {
-        "players": [
-          {
-            "name": "LOHAN LIRETTE",
-            "position": "F",
-            "number": 65
-          },
-          {
-            "name": "CHARLES HUOT",
-            "position": "F",
-            "number": 82
-          },
-          {
-            "name": "DARREN ROSS",
-            "position": "F",
-            "number": 61
-          }
-        ],
-        "goals": 1,
-        "assists": 2,
-        "points": 3,
-        "type": "trio",
-        "raw_score": 3,
-        "dominance_score": 12.0,
+        "dominance_score": 11.1,
         "rank": "Line 3"
       }
     ],
-    "defense_pairs": [],
+    "defense_pairs": [
+      {
+        "players": [
+          {
+            "name": "CHARLES GAGNON",
+            "position": "D",
+            "number": 68
+          },
+          {
+            "name": "JEAN-NICOLAS ROCHON-BRISEBOIS",
+            "position": "D",
+            "number": 63
+          }
+        ],
+        "goals": 1,
+        "assists": 1,
+        "points": 2,
+        "rank": "D1"
+      }
+    ],
     "powerplay_units": [],
     "penalty_kill_units": []
   },
@@ -1709,6 +1754,32 @@
       {
         "players": [
           {
+            "name": "ELLIOT BOISVERT",
+            "position": "F",
+            "number": 14
+          },
+          {
+            "name": "LINWA AREERATTANATRAGOON",
+            "position": "F",
+            "number": 12
+          },
+          {
+            "name": "SAM TREMBLAY",
+            "position": "F",
+            "number": 8
+          }
+        ],
+        "goals": 2,
+        "assists": 4,
+        "points": 6,
+        "type": "trio",
+        "raw_score": 6,
+        "dominance_score": 13.6,
+        "rank": "Line 1"
+      },
+      {
+        "players": [
+          {
             "name": "DEVON BEAUREGARD",
             "position": "F",
             "number": 9
@@ -1724,13 +1795,13 @@
             "number": 2
           }
         ],
-        "goals": 1,
-        "assists": 3,
-        "points": 4,
+        "goals": 2,
+        "assists": 4,
+        "points": 6,
         "type": "deduced_trio",
-        "raw_score": 4,
-        "dominance_score": 16.0,
-        "rank": "Line 1"
+        "raw_score": 6,
+        "dominance_score": 13.6,
+        "rank": "Line 2"
       },
       {
         "players": [
@@ -1750,42 +1821,35 @@
             "number": 15
           }
         ],
-        "goals": 2,
-        "assists": 2,
-        "points": 4,
+        "goals": 3,
+        "assists": 3,
+        "points": 6,
         "type": "deduced_trio",
-        "raw_score": 4,
-        "dominance_score": 16.0,
-        "rank": "Line 2"
-      },
-      {
-        "players": [
-          {
-            "name": "ARNAUD LAPLUME",
-            "position": "F",
-            "number": 13
-          },
-          {
-            "name": "ELLIOT BOISVERT",
-            "position": "F",
-            "number": 14
-          },
-          {
-            "name": "EDOUARD ST-ARNEAULT",
-            "position": "F",
-            "number": 16
-          }
-        ],
-        "goals": 1,
-        "assists": 2,
-        "points": 3,
-        "type": "trio",
-        "raw_score": 3,
-        "dominance_score": 12.0,
+        "raw_score": 6,
+        "dominance_score": 13.6,
         "rank": "Line 3"
       }
     ],
-    "defense_pairs": [],
+    "defense_pairs": [
+      {
+        "players": [
+          {
+            "name": "SIMON DOSTIE",
+            "position": "D",
+            "number": 18
+          },
+          {
+            "name": "ZACHARY GOSSELIN",
+            "position": "D",
+            "number": 19
+          }
+        ],
+        "goals": 1,
+        "assists": 1,
+        "points": 2,
+        "rank": "D1"
+      }
+    ],
     "powerplay_units": [],
     "penalty_kill_units": []
   },
@@ -1921,7 +1985,7 @@
         "points": 8,
         "type": "deduced_trio",
         "raw_score": 8,
-        "dominance_score": 44.4,
+        "dominance_score": 36.4,
         "rank": "Line 1"
       },
       {
@@ -1942,28 +2006,28 @@
         "points": 4,
         "type": "pair",
         "raw_score": 4,
-        "dominance_score": 22.2,
+        "dominance_score": 18.2,
         "rank": "Line 2"
       },
       {
         "players": [
           {
-            "name": "UMBERTO CATAVOLO",
+            "name": "JAYDEN CHANTIRI",
             "position": "F",
-            "number": 37
+            "number": 55
           },
           {
-            "name": "ANDREAS JAYDEN CISMAS",
+            "name": "SASHA MANOUKIAN",
             "position": "F",
-            "number": 47
+            "number": 39
           }
         ],
-        "goals": 1,
-        "assists": 1,
-        "points": 2,
+        "goals": 2,
+        "assists": 2,
+        "points": 4,
         "type": "pair",
-        "raw_score": 2,
-        "dominance_score": 11.1,
+        "raw_score": 4,
+        "dominance_score": 18.2,
         "rank": "Line 3"
       }
     ],
@@ -2720,7 +2784,183 @@
       }
     ],
     "defense_pairs": [],
-    "powerplay_units": [],
+    "powerplay_units": [
+      {
+        "players": [
+          {
+            "name": "MALIK MIOUSE",
+            "position": "F",
+            "number": 14
+          },
+          {
+            "name": "ZAKARY LITALIEN",
+            "position": "F",
+            "number": 88
+          }
+        ],
+        "goals": 1,
+        "assists": 1,
+        "points": 2,
+        "type": "powerplay",
+        "raw_score": 2,
+        "dominance_score": 100.0,
+        "rank": "PP1"
+      }
+    ],
+    "penalty_kill_units": []
+  },
+  "128297": {
+    "forward_lines": [
+      {
+        "players": [
+          {
+            "name": "GABRIEL DESROCHERS",
+            "position": "F",
+            "number": 34
+          },
+          {
+            "name": "FLORENT LITALIEN",
+            "position": "F",
+            "number": 27
+          },
+          {
+            "name": "XAVIER MONTMINY",
+            "position": "F",
+            "number": 36
+          }
+        ],
+        "goals": 1,
+        "assists": 1,
+        "points": 2,
+        "type": "deduced_trio",
+        "raw_score": 2,
+        "dominance_score": 16.7,
+        "rank": "Line 1"
+      },
+      {
+        "players": [
+          {
+            "name": "THOMAS MERCIER",
+            "position": "F",
+            "number": 29
+          },
+          {
+            "name": "GABRIEL DESROCHERS",
+            "position": "F",
+            "number": 34
+          },
+          {
+            "name": "JAMES FILION",
+            "position": "F",
+            "number": 22
+          }
+        ],
+        "goals": 1,
+        "assists": 1,
+        "points": 2,
+        "type": "deduced_trio",
+        "raw_score": 2,
+        "dominance_score": 16.7,
+        "rank": "Line 2"
+      },
+      {
+        "players": [
+          {
+            "name": "FLORENT LITALIEN",
+            "position": "F",
+            "number": 27
+          },
+          {
+            "name": "JAMES FILION",
+            "position": "F",
+            "number": 22
+          }
+        ],
+        "goals": 1,
+        "assists": 1,
+        "points": 2,
+        "type": "pair",
+        "raw_score": 2,
+        "dominance_score": 16.7,
+        "rank": "Line 3"
+      }
+    ],
+    "defense_pairs": [],
+    "powerplay_units": [
+      {
+        "players": [
+          {
+            "name": "JAMES FILION",
+            "position": "F",
+            "number": 22
+          },
+          {
+            "name": "MALCOM DUBÉ",
+            "position": "F",
+            "number": 40
+          },
+          {
+            "name": "LOUIS-THOMAS GUÉRARD",
+            "position": "D",
+            "number": 24
+          }
+        ],
+        "goals": 1,
+        "assists": 2,
+        "points": 3,
+        "type": "powerplay",
+        "raw_score": 3,
+        "dominance_score": 30.0,
+        "rank": "PP1"
+      },
+      {
+        "players": [
+          {
+            "name": "FLORENT LITALIEN",
+            "position": "F",
+            "number": 27
+          },
+          {
+            "name": "GABRIEL DESROCHERS",
+            "position": "F",
+            "number": 34
+          },
+          {
+            "name": "XAVIER MONTMINY",
+            "position": "F",
+            "number": 36
+          }
+        ],
+        "goals": 1,
+        "assists": 2,
+        "points": 3,
+        "type": "powerplay",
+        "raw_score": 3,
+        "dominance_score": 30.0,
+        "rank": "PP2"
+      },
+      {
+        "players": [
+          {
+            "name": "HAYDEN VOHL-CÔTÉ",
+            "position": "F",
+            "number": 32
+          },
+          {
+            "name": "LOUIS-THOMAS GUÉRARD",
+            "position": "D",
+            "number": 24
+          }
+        ],
+        "goals": 1,
+        "assists": 1,
+        "points": 2,
+        "type": "powerplay",
+        "raw_score": 2,
+        "dominance_score": 20.0,
+        "rank": "PP3"
+      }
+    ],
     "penalty_kill_units": []
   },
   "118876": {
@@ -2857,11 +3097,6 @@
       {
         "players": [
           {
-            "name": "NATHAN DESHAIES",
-            "position": "F",
-            "number": 22
-          },
-          {
             "name": "LUDOVIC PAQUIN",
             "position": "F",
             "number": 17
@@ -2870,6 +3105,11 @@
             "name": "PIER-OLIVIER MIVILLE-BÉLANGER",
             "position": "F",
             "number": 6
+          },
+          {
+            "name": "EDOUARD PÉPIN",
+            "position": "F",
+            "number": 5
           }
         ],
         "goals": 2,
@@ -2877,7 +3117,7 @@
         "points": 4,
         "type": "deduced_trio",
         "raw_score": 4,
-        "dominance_score": 16.0,
+        "dominance_score": 12.9,
         "rank": "Line 1"
       },
       {
@@ -2898,16 +3138,11 @@
         "points": 4,
         "type": "pair",
         "raw_score": 4,
-        "dominance_score": 16.0,
+        "dominance_score": 12.9,
         "rank": "Line 2"
       },
       {
         "players": [
-          {
-            "name": "MATHÉO BOURASSA",
-            "position": "F",
-            "number": 48
-          },
           {
             "name": "NATHAN DESHAIES",
             "position": "F",
@@ -2919,12 +3154,12 @@
             "number": 17
           }
         ],
-        "goals": 1,
+        "goals": 2,
         "assists": 2,
-        "points": 3,
-        "type": "trio",
-        "raw_score": 3,
-        "dominance_score": 12.0,
+        "points": 4,
+        "type": "pair",
+        "raw_score": 4,
+        "dominance_score": 12.9,
         "rank": "Line 3"
       }
     ],
@@ -2950,129 +3185,6 @@
         "raw_score": 4,
         "dominance_score": 100.0,
         "rank": "PP1"
-      }
-    ],
-    "penalty_kill_units": []
-  },
-  "128297": {
-    "forward_lines": [
-      {
-        "players": [
-          {
-            "name": "ELLIOT JOBIDON",
-            "position": "F",
-            "number": 38
-          },
-          {
-            "name": "FLORENT LITALIEN",
-            "position": "F",
-            "number": 27
-          },
-          {
-            "name": "XAVIER MONTMINY",
-            "position": "F",
-            "number": 36
-          }
-        ],
-        "goals": 1,
-        "assists": 1,
-        "points": 2,
-        "type": "deduced_trio",
-        "raw_score": 2,
-        "dominance_score": 25.0,
-        "rank": "Line 1"
-      },
-      {
-        "players": [
-          {
-            "name": "THOMAS MERCIER",
-            "position": "F",
-            "number": 29
-          },
-          {
-            "name": "GABRIEL DESROCHERS",
-            "position": "F",
-            "number": 34
-          },
-          {
-            "name": "JAMES FILION",
-            "position": "F",
-            "number": 22
-          }
-        ],
-        "goals": 1,
-        "assists": 1,
-        "points": 2,
-        "type": "deduced_trio",
-        "raw_score": 2,
-        "dominance_score": 25.0,
-        "rank": "Line 2"
-      },
-      {
-        "players": [
-          {
-            "name": "FLORENT LITALIEN",
-            "position": "F",
-            "number": 27
-          },
-          {
-            "name": "JAMES FILION",
-            "position": "F",
-            "number": 22
-          }
-        ],
-        "goals": 1,
-        "assists": 1,
-        "points": 2,
-        "type": "pair",
-        "raw_score": 2,
-        "dominance_score": 25.0,
-        "rank": "Line 3"
-      }
-    ],
-    "defense_pairs": [],
-    "powerplay_units": [
-      {
-        "players": [
-          {
-            "name": "HAYDEN VOHL-CÔTÉ",
-            "position": "F",
-            "number": 32
-          },
-          {
-            "name": "LOUIS-THOMAS GUÉRARD",
-            "position": "D",
-            "number": 24
-          }
-        ],
-        "goals": 1,
-        "assists": 1,
-        "points": 2,
-        "type": "powerplay",
-        "raw_score": 2,
-        "dominance_score": 50.0,
-        "rank": "PP1"
-      },
-      {
-        "players": [
-          {
-            "name": "GABRIEL DESROCHERS",
-            "position": "F",
-            "number": 34
-          },
-          {
-            "name": "HAYDEN VOHL-CÔTÉ",
-            "position": "F",
-            "number": 32
-          }
-        ],
-        "goals": 1,
-        "assists": 1,
-        "points": 2,
-        "type": "powerplay",
-        "raw_score": 2,
-        "dominance_score": 50.0,
-        "rank": "PP2"
       }
     ],
     "penalty_kill_units": []
