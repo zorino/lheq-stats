@@ -228,6 +228,28 @@ class FinalWorkingLHEQScraper:
         filename = f"web/data/games/game_{game_id}.json"
         return os.path.exists(filename)
 
+    def should_skip_game(self, game_id):
+        """Check if game should be skipped (only skip if it exists and is FINAL)"""
+        filename = f"web/data/games/game_{game_id}.json"
+
+        if not os.path.exists(filename):
+            return False  # File doesn't exist, don't skip
+
+        try:
+            with open(filename, 'r', encoding='utf-8') as f:
+                existing_game = json.load(f)
+                status = existing_game.get('status', '').upper()
+
+                # Only skip if status is FINAL
+                if status == 'FINAL':
+                    return True
+                else:
+                    # Game is SCHEDULED or other status, should be re-processed
+                    return False
+        except Exception as e:
+            print(f"⚠️ Error reading existing game file {filename}: {e}")
+            return False  # If we can't read it, don't skip (re-process it)
+
     def extract_starting_goalies(self, pdf_filename):
         """Extract starting goalies using Gemini AI"""
         import subprocess
@@ -298,11 +320,15 @@ class FinalWorkingLHEQScraper:
                 game_id = game.get('id')
                 status = game.get('status', '').upper()
 
-                # Check if game already exists
-                if self.game_already_exists(game_id):
-                    print(f"⏭️ [{i}/{len(api_games)}] Game {game_id} already exists - skipping")
+                # Check if game should be skipped (only skip FINAL games)
+                if self.should_skip_game(game_id):
+                    print(f"⏭️ [{i}/{len(api_games)}] Game {game_id} already exists and is FINAL - skipping")
                     skipped_count += 1
                     continue
+
+                # Check if we're updating a previously scheduled game
+                if self.game_already_exists(game_id):
+                    print(f"🔄 [{i}/{len(api_games)}] Game {game_id} exists as SCHEDULED - updating...")
 
                 # Extract team information
                 home_team = game.get('homeTeam', {})
