@@ -1070,6 +1070,7 @@ class FormationDetector:
             'even_strength_d_duos': defaultdict(lambda: {'goals': 0, 'assists': 0, 'points': 0}),
             'powerplay_units': defaultdict(lambda: {'goals': 0, 'assists': 0, 'points': 0}),
             'penalty_kill_units': defaultdict(lambda: {'goals': 0, 'assists': 0, 'points': 0}),
+            'goal_scoring_pairs': defaultdict(lambda: {'goals': 0}),  # Track assist->goal pairs
             'player_positions': {}
         })
 
@@ -1139,7 +1140,19 @@ class FormationDetector:
 
             players_involved.append(scorer_id)
 
-            for assist in goal.get('assists', []):
+            # Track goal-scoring pairs (primary assist to scorer)
+            assists = goal.get('assists', [])
+            if assists and len(assists) > 0:
+                # Primary assist (first assist)
+                primary_assist = assists[0]
+                primary_assist_id = primary_assist.get('participantId')
+
+                if primary_assist_id:
+                    # Create pair key (always sorted for consistency)
+                    pair_key = tuple(sorted([primary_assist_id, scorer_id]))
+                    self.team_formations[team_id]['goal_scoring_pairs'][pair_key]['goals'] += 1
+
+            for assist in assists:
                 assist_id = assist.get('participantId')
                 if assist_id:
                     players_involved.append(assist_id)
@@ -1338,7 +1351,8 @@ class FormationDetector:
             'forward_lines': self._get_ranked_forward_lines(team_data),
             'defense_pairs': self._get_ranked_defense_pairs(team_data),
             'powerplay_units': self._get_ranked_powerplay_units(team_data),
-            'penalty_kill_units': self._get_ranked_penalty_kill_units(team_data)
+            'penalty_kill_units': self._get_ranked_penalty_kill_units(team_data),
+            'goal_scoring_pairs': self._get_top_goal_scoring_pairs(team_data)
         }
 
     def _calculate_dominance_scores(self, formations_list, scores_trios, scores_pairs):
@@ -1659,6 +1673,31 @@ class FormationDetector:
             ranked_units.append(unit)
 
         return ranked_units
+
+    def _get_top_goal_scoring_pairs(self, team_data):
+        """Get top 5 goal-scoring pairs ranked by number of goals"""
+        pairs = []
+
+        # Get all goal-scoring pairs with goals > 0
+        if team_data['goal_scoring_pairs']:
+            for pair_key, stats in team_data['goal_scoring_pairs'].items():
+                if stats['goals'] > 0:
+                    players = []
+                    for player_id in pair_key:
+                        if player_id in team_data['player_positions']:
+                            players.append(team_data['player_positions'][player_id])
+
+                    if len(players) == 2:
+                        pairs.append({
+                            'players': players,
+                            'goals': stats['goals']
+                        })
+
+        # Sort by goals descending
+        pairs.sort(key=lambda x: x['goals'], reverse=True)
+
+        # Return top 5 pairs
+        return pairs[:5]
 
     def export_formations(self, output_file):
         """Export formations to JSON file"""

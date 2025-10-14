@@ -253,6 +253,83 @@
         "points": 2,
         "rank": "PK3"
       }
+    ],
+    "goal_scoring_pairs": [
+      {
+        "players": [
+          {
+            "name": "TYLER STEINBERG",
+            "position": "F",
+            "number": 10
+          },
+          {
+            "name": "FINLEY BRUNELLE",
+            "position": "F",
+            "number": 8
+          }
+        ],
+        "goals": 5
+      },
+      {
+        "players": [
+          {
+            "name": "JORDAN LOBE",
+            "position": "F",
+            "number": 24
+          },
+          {
+            "name": "KWENCY FONTAINE",
+            "position": "D",
+            "number": 14
+          }
+        ],
+        "goals": 4
+      },
+      {
+        "players": [
+          {
+            "name": "SASHA DURDEVIC",
+            "position": "F",
+            "number": 16
+          },
+          {
+            "name": "TYLER STEINBERG",
+            "position": "F",
+            "number": 10
+          }
+        ],
+        "goals": 3
+      },
+      {
+        "players": [
+          {
+            "name": "SASHA DURDEVIC",
+            "position": "F",
+            "number": 16
+          },
+          {
+            "name": "FINLEY BRUNELLE",
+            "position": "F",
+            "number": 8
+          }
+        ],
+        "goals": 3
+      },
+      {
+        "players": [
+          {
+            "name": "GEORGE MANOS",
+            "position": "D",
+            "number": 4
+          },
+          {
+            "name": "TYLER STEINBERG",
+            "position": "F",
+            "number": 10
+          }
+        ],
+        "goals": 3
+      }
     ]
   },
   "128303": {
@@ -355,7 +432,84 @@
         "rank": "PP1"
       }
     ],
-    "penalty_kill_units": []
+    "penalty_kill_units": [],
+    "goal_scoring_pairs": [
+      {
+        "players": [
+          {
+            "name": "EVAN LUSSIER",
+            "position": "F",
+            "number": 8
+          },
+          {
+            "name": "GUSTAVE BEAUREGARD",
+            "position": "F",
+            "number": 10
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "DAMIEN BLANCHARD",
+            "position": "F",
+            "number": 17
+          },
+          {
+            "name": "JACOB ROY",
+            "position": "F",
+            "number": 11
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "YOHAN GRENIER",
+            "position": "F",
+            "number": 13
+          },
+          {
+            "name": "RAPHAEL NERESTANT-LINDOR",
+            "position": "F",
+            "number": 9
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "WILLIAM ROBERT-KUBIK",
+            "position": "F",
+            "number": 4
+          },
+          {
+            "name": "RAPHAEL NERESTANT-LINDOR",
+            "position": "F",
+            "number": 9
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "DAMIEN BLANCHARD",
+            "position": "F",
+            "number": 17
+          },
+          {
+            "name": "RAPHAEL NERESTANT-LINDOR",
+            "position": "F",
+            "number": 9
+          }
+        ],
+        "goals": 1
+      }
+    ]
   },
   "128317": {
     "forward_lines": [
@@ -499,7 +653,84 @@
         "rank": "PP3"
       }
     ],
-    "penalty_kill_units": []
+    "penalty_kill_units": [],
+    "goal_scoring_pairs": [
+      {
+        "players": [
+          {
+            "name": "RAFAEL MICHAUD",
+            "position": "F",
+            "number": 79
+          },
+          {
+            "name": "XAVIER HÉBERT",
+            "position": "F",
+            "number": 22
+          }
+        ],
+        "goals": 4
+      },
+      {
+        "players": [
+          {
+            "name": "MALEK GRAVEL",
+            "position": "F",
+            "number": 9
+          },
+          {
+            "name": "ANTOINE RAYMOND",
+            "position": "F",
+            "number": 7
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "EMILE LEONARD",
+            "position": "F",
+            "number": 10
+          },
+          {
+            "name": "RAFAEL MICHAUD",
+            "position": "F",
+            "number": 79
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "RIMTO DUPUIS",
+            "position": "F",
+            "number": 21
+          },
+          {
+            "name": "KAYDEN BRASSARD",
+            "position": "F",
+            "number": 93
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "KAYDEN BRASSARD",
+            "position": "F",
+            "number": 93
+          },
+          {
+            "name": "LÉO TESSIER",
+            "position": "F",
+            "number": 98
+          }
+        ],
+        "goals": 1
+      }
+    ]
   },
   "128308": {
     "forward_lines": [
@@ -643,7 +874,84 @@
         "rank": "PP3"
       }
     ],
-    "penalty_kill_units": []
+    "penalty_kill_units": [],
+    "goal_scoring_pairs": [
+      {
+        "players": [
+          {
+            "name": "CEDRICK BERUBE",
+            "position": "F",
+            "number": 17
+          },
+          {
+            "name": "ROMIE ROBITAILLE",
+            "position": "F",
+            "number": 22
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "NATHAN COTTON",
+            "position": "F",
+            "number": 24
+          },
+          {
+            "name": "ROMIE ROBITAILLE",
+            "position": "F",
+            "number": 22
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "ENZO VAZ TOSTE",
+            "position": "F",
+            "number": 36
+          },
+          {
+            "name": "WILLIAM GROULX",
+            "position": "F",
+            "number": 10
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "ALEXY LABERGE",
+            "position": "F",
+            "number": 54
+          },
+          {
+            "name": "ISAAK SAURETTE",
+            "position": "F",
+            "number": 19
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "BENJAMIN LACASSE",
+            "position": "F",
+            "number": 11
+          },
+          {
+            "name": "LOUIS GRANDMAITRE",
+            "position": "F",
+            "number": 49
+          }
+        ],
+        "goals": 1
+      }
+    ]
   },
   "128309": {
     "forward_lines": [
@@ -824,6 +1132,83 @@
         "assists": 1,
         "points": 2,
         "rank": "PK1"
+      }
+    ],
+    "goal_scoring_pairs": [
+      {
+        "players": [
+          {
+            "name": "LOUIS BEAUDOIN",
+            "position": "F",
+            "number": 38
+          },
+          {
+            "name": "LOUKA LEBREUX",
+            "position": "F",
+            "number": 27
+          }
+        ],
+        "goals": 3
+      },
+      {
+        "players": [
+          {
+            "name": "LOUIS BEAUDOIN",
+            "position": "F",
+            "number": 38
+          },
+          {
+            "name": "ZACK MAZZAWI",
+            "position": "F",
+            "number": 22
+          }
+        ],
+        "goals": 3
+      },
+      {
+        "players": [
+          {
+            "name": "HENRI GRAVEL",
+            "position": "F",
+            "number": 39
+          },
+          {
+            "name": "JAYDEN DUMARESQ",
+            "position": "F",
+            "number": 23
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "RYAN DUCHARME",
+            "position": "F",
+            "number": 44
+          },
+          {
+            "name": "LOUKA LEBREUX",
+            "position": "F",
+            "number": 27
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "LUCAS DUPÉRÉ",
+            "position": "D",
+            "number": 24
+          },
+          {
+            "name": "RYAN DUCHARME",
+            "position": "F",
+            "number": 44
+          }
+        ],
+        "goals": 1
       }
     ]
   },
@@ -1024,6 +1409,83 @@
         "assists": 1,
         "points": 2,
         "rank": "PK1"
+      }
+    ],
+    "goal_scoring_pairs": [
+      {
+        "players": [
+          {
+            "name": "EDDY ACEVEDO",
+            "position": "F",
+            "number": 38
+          },
+          {
+            "name": "DIMITRIOS ANTHOPOULOS",
+            "position": "F",
+            "number": 36
+          }
+        ],
+        "goals": 3
+      },
+      {
+        "players": [
+          {
+            "name": "LEO TAILLEFER",
+            "position": "F",
+            "number": 15
+          },
+          {
+            "name": "JÉROME LAVALLÉE",
+            "position": "F",
+            "number": 91
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "MATTHEW CANTINI",
+            "position": "F",
+            "number": 34
+          },
+          {
+            "name": "FULVIO DI GENNARO",
+            "position": "F",
+            "number": 61
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "EDDY ACEVEDO",
+            "position": "F",
+            "number": 38
+          },
+          {
+            "name": "LUCA GILLIS",
+            "position": "F",
+            "number": 55
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "JÉRÉMIE THOMAS",
+            "position": "F",
+            "number": 7
+          },
+          {
+            "name": "FULVIO DI GENNARO",
+            "position": "F",
+            "number": 61
+          }
+        ],
+        "goals": 2
       }
     ]
   },
@@ -1235,6 +1697,83 @@
         "points": 2,
         "rank": "PK1"
       }
+    ],
+    "goal_scoring_pairs": [
+      {
+        "players": [
+          {
+            "name": "THOMAS DELISLE",
+            "position": "F",
+            "number": 22
+          },
+          {
+            "name": "ALEX DEROY",
+            "position": "F",
+            "number": 89
+          }
+        ],
+        "goals": 5
+      },
+      {
+        "players": [
+          {
+            "name": "HENRIK COURNOYER",
+            "position": "F",
+            "number": 72
+          },
+          {
+            "name": "MAIK FORGET",
+            "position": "F",
+            "number": 14
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "MAIK FORGET",
+            "position": "F",
+            "number": 14
+          },
+          {
+            "name": "ALEX DEROY",
+            "position": "F",
+            "number": 89
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "JACOB DUBE DESSEAUX",
+            "position": "D",
+            "number": 24
+          },
+          {
+            "name": "HENRIK COURNOYER",
+            "position": "F",
+            "number": 72
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "DYLAN LANGEVIN",
+            "position": "F",
+            "number": 94
+          },
+          {
+            "name": "ALEX DEROY",
+            "position": "F",
+            "number": 89
+          }
+        ],
+        "goals": 2
+      }
     ]
   },
   "128315": {
@@ -1379,7 +1918,84 @@
         "rank": "PP3"
       }
     ],
-    "penalty_kill_units": []
+    "penalty_kill_units": [],
+    "goal_scoring_pairs": [
+      {
+        "players": [
+          {
+            "name": "TRISTAN LEVERT",
+            "position": "F",
+            "number": 32
+          },
+          {
+            "name": "SAMUEL LALONGÉ",
+            "position": "F",
+            "number": 28
+          }
+        ],
+        "goals": 4
+      },
+      {
+        "players": [
+          {
+            "name": "FÉLIX LIPPÉ",
+            "position": "F",
+            "number": 34
+          },
+          {
+            "name": "KEYDEN OLIN",
+            "position": "F",
+            "number": 37
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "CHARLES-RENE BERARD",
+            "position": "F",
+            "number": 25
+          },
+          {
+            "name": "TRISTAN LEVERT",
+            "position": "F",
+            "number": 32
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "ELLIOT SALVAIL",
+            "position": "D",
+            "number": 24
+          },
+          {
+            "name": "SAMUEL LALONGÉ",
+            "position": "F",
+            "number": 28
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "TOMMY JAY LATULIPPE",
+            "position": "F",
+            "number": 21
+          },
+          {
+            "name": "JAYSON PINEAULT",
+            "position": "F",
+            "number": 38
+          }
+        ],
+        "goals": 1
+      }
+    ]
   },
   "128301": {
     "forward_lines": [
@@ -1473,7 +2089,84 @@
       }
     ],
     "powerplay_units": [],
-    "penalty_kill_units": []
+    "penalty_kill_units": [],
+    "goal_scoring_pairs": [
+      {
+        "players": [
+          {
+            "name": "ARNAUD FERNET",
+            "position": "F",
+            "number": 66
+          },
+          {
+            "name": "JUSTIN LAMBERT",
+            "position": "F",
+            "number": 18
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "LOHAN LIRETTE",
+            "position": "F",
+            "number": 65
+          },
+          {
+            "name": "CHARLES HUOT",
+            "position": "F",
+            "number": 82
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "LOHAN LIRETTE",
+            "position": "F",
+            "number": 65
+          },
+          {
+            "name": "DARREN ROSS",
+            "position": "F",
+            "number": 61
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "WILLIAM BOILY",
+            "position": "D",
+            "number": 71
+          },
+          {
+            "name": "ARNAUD FERNET",
+            "position": "F",
+            "number": 66
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "DARREN ROSS",
+            "position": "F",
+            "number": 61
+          },
+          {
+            "name": "ARNAUD FERNET",
+            "position": "F",
+            "number": 66
+          }
+        ],
+        "goals": 1
+      }
+    ]
   },
   "128310": {
     "forward_lines": [
@@ -1678,6 +2371,83 @@
         "points": 2,
         "rank": "PK2"
       }
+    ],
+    "goal_scoring_pairs": [
+      {
+        "players": [
+          {
+            "name": "VINCENT VINET",
+            "position": "F",
+            "number": 39
+          },
+          {
+            "name": "MATHIS BOISVERT",
+            "position": "F",
+            "number": 22
+          }
+        ],
+        "goals": 5
+      },
+      {
+        "players": [
+          {
+            "name": "JACOB FLETCHER",
+            "position": "F",
+            "number": 41
+          },
+          {
+            "name": "MATHIS BOISVERT",
+            "position": "F",
+            "number": 22
+          }
+        ],
+        "goals": 4
+      },
+      {
+        "players": [
+          {
+            "name": "JACOB FLETCHER",
+            "position": "F",
+            "number": 41
+          },
+          {
+            "name": "VINCENT VINET",
+            "position": "F",
+            "number": 39
+          }
+        ],
+        "goals": 4
+      },
+      {
+        "players": [
+          {
+            "name": "JACOB FLETCHER",
+            "position": "F",
+            "number": 41
+          },
+          {
+            "name": "HENRY COLDRICK",
+            "position": "F",
+            "number": 37
+          }
+        ],
+        "goals": 3
+      },
+      {
+        "players": [
+          {
+            "name": "VINCENT VINET",
+            "position": "F",
+            "number": 39
+          },
+          {
+            "name": "HENRY COLDRICK",
+            "position": "F",
+            "number": 37
+          }
+        ],
+        "goals": 2
+      }
     ]
   },
   "128299": {
@@ -1806,7 +2576,84 @@
         "rank": "PP2"
       }
     ],
-    "penalty_kill_units": []
+    "penalty_kill_units": [],
+    "goal_scoring_pairs": [
+      {
+        "players": [
+          {
+            "name": "MATHIAS VILLENEUVE",
+            "position": "F",
+            "number": 16
+          },
+          {
+            "name": "THÉO GODBOUT",
+            "position": "F",
+            "number": 21
+          }
+        ],
+        "goals": 4
+      },
+      {
+        "players": [
+          {
+            "name": "SAMUEL GAGNON",
+            "position": "F",
+            "number": 8
+          },
+          {
+            "name": "MADOX LACHAINE",
+            "position": "F",
+            "number": 22
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "JACOB CRÉPEAULT",
+            "position": "F",
+            "number": 7
+          },
+          {
+            "name": "THÉO GODBOUT",
+            "position": "F",
+            "number": 21
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "LUDGER GILBERT",
+            "position": "D",
+            "number": 24
+          },
+          {
+            "name": "MADOX LACHAINE",
+            "position": "F",
+            "number": 22
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "CHARLES D'ASTOUS",
+            "position": "D",
+            "number": 10
+          },
+          {
+            "name": "GABRIEL RONDEAU",
+            "position": "F",
+            "number": 4
+          }
+        ],
+        "goals": 1
+      }
+    ]
   },
   "128316": {
     "forward_lines": [
@@ -1953,7 +2800,84 @@
         "rank": "PP2"
       }
     ],
-    "penalty_kill_units": []
+    "penalty_kill_units": [],
+    "goal_scoring_pairs": [
+      {
+        "players": [
+          {
+            "name": "LINWA AREERATTANATRAGOON",
+            "position": "F",
+            "number": 12
+          },
+          {
+            "name": "WILLIAM MARCEAU",
+            "position": "F",
+            "number": 15
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "SAM TREMBLAY",
+            "position": "F",
+            "number": 8
+          },
+          {
+            "name": "ANTHONY LEHOUX",
+            "position": "D",
+            "number": 11
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "DEVON BEAUREGARD",
+            "position": "F",
+            "number": 9
+          },
+          {
+            "name": "LINWA AREERATTANATRAGOON",
+            "position": "F",
+            "number": 12
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "ZACHARY GOSSELIN",
+            "position": "D",
+            "number": 19
+          },
+          {
+            "name": "SAM TREMBLAY",
+            "position": "F",
+            "number": 8
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "ARNAUD LAPLUME",
+            "position": "F",
+            "number": 13
+          },
+          {
+            "name": "ZACHARY GOSSELIN",
+            "position": "D",
+            "number": 19
+          }
+        ],
+        "goals": 2
+      }
+    ]
   },
   "128300": {
     "forward_lines": [
@@ -2113,6 +3037,83 @@
         "points": 2,
         "rank": "PK2"
       }
+    ],
+    "goal_scoring_pairs": [
+      {
+        "players": [
+          {
+            "name": "JAYDEN RIENDEAU",
+            "position": "F",
+            "number": 22
+          },
+          {
+            "name": "MATT GENDREAU",
+            "position": "F",
+            "number": 15
+          }
+        ],
+        "goals": 3
+      },
+      {
+        "players": [
+          {
+            "name": "MATT GENDREAU",
+            "position": "F",
+            "number": 15
+          },
+          {
+            "name": "LIAM NAUD",
+            "position": "F",
+            "number": 10
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "JAYDEN RIENDEAU",
+            "position": "F",
+            "number": 22
+          },
+          {
+            "name": "ARTHUR BOUCHER",
+            "position": "D",
+            "number": 9
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "MATT GENDREAU",
+            "position": "F",
+            "number": 15
+          },
+          {
+            "name": "ARTHUR BOUCHER",
+            "position": "D",
+            "number": 9
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "SAMUEL LALANDE",
+            "position": "F",
+            "number": 4
+          },
+          {
+            "name": "ELLIOT PELLETIER",
+            "position": "F",
+            "number": 16
+          }
+        ],
+        "goals": 1
+      }
     ]
   },
   "128311": {
@@ -2231,7 +3232,84 @@
         "rank": "PP2"
       }
     ],
-    "penalty_kill_units": []
+    "penalty_kill_units": [],
+    "goal_scoring_pairs": [
+      {
+        "players": [
+          {
+            "name": "UMBERTO CATAVOLO",
+            "position": "F",
+            "number": 37
+          },
+          {
+            "name": "ADRIANO DI CIOCCO",
+            "position": "F",
+            "number": 34
+          }
+        ],
+        "goals": 4
+      },
+      {
+        "players": [
+          {
+            "name": "DAPHNÉE GAGNON",
+            "position": "F",
+            "number": 42
+          },
+          {
+            "name": "UMBERTO CATAVOLO",
+            "position": "F",
+            "number": 37
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "PHILIPPE BOUGIE",
+            "position": "F",
+            "number": 45
+          },
+          {
+            "name": "SASHA MANOUKIAN",
+            "position": "F",
+            "number": 39
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "JAYDEN CHANTIRI",
+            "position": "F",
+            "number": 55
+          },
+          {
+            "name": "SASHA MANOUKIAN",
+            "position": "F",
+            "number": 39
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "AYDEN BARBOSA",
+            "position": "D",
+            "number": 43
+          },
+          {
+            "name": "ADRIANO DI CIOCCO",
+            "position": "F",
+            "number": 34
+          }
+        ],
+        "goals": 1
+      }
+    ]
   },
   "128298": {
     "forward_lines": [
@@ -2328,7 +3406,84 @@
         "rank": "PP1"
       }
     ],
-    "penalty_kill_units": []
+    "penalty_kill_units": [],
+    "goal_scoring_pairs": [
+      {
+        "players": [
+          {
+            "name": "ZACK TOURIGNY",
+            "position": "F",
+            "number": 88
+          },
+          {
+            "name": "ÉVAN BOUCHER",
+            "position": "F",
+            "number": 13
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "MATHÉO ARMSTRONG",
+            "position": "F",
+            "number": 49
+          },
+          {
+            "name": "CHARLES-OLIVIER DESBIENS",
+            "position": "F",
+            "number": 91
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "TYLER LETENDRE",
+            "position": "D",
+            "number": 7
+          },
+          {
+            "name": "JACOB DESAULNIERS",
+            "position": "F",
+            "number": 26
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "REMI BARBEAU",
+            "position": "D",
+            "number": 9
+          },
+          {
+            "name": "NOAH BENOIT",
+            "position": "F",
+            "number": 68
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "NOAH BENOIT",
+            "position": "F",
+            "number": 68
+          },
+          {
+            "name": "JACOB DESAULNIERS",
+            "position": "F",
+            "number": 26
+          }
+        ],
+        "goals": 1
+      }
+    ]
   },
   "128304": {
     "forward_lines": [
@@ -2482,7 +3637,84 @@
         "rank": "PP3"
       }
     ],
-    "penalty_kill_units": []
+    "penalty_kill_units": [],
+    "goal_scoring_pairs": [
+      {
+        "players": [
+          {
+            "name": "GABRIEL GARNEAU",
+            "position": "F",
+            "number": 27
+          },
+          {
+            "name": "JAMES MOORE",
+            "position": "F",
+            "number": 25
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "HUBERT CORRIVEAU",
+            "position": "F",
+            "number": 28
+          },
+          {
+            "name": "JAEL GOUPIL",
+            "position": "F",
+            "number": 0
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "ELIJAH BELANGER",
+            "position": "F",
+            "number": 38
+          },
+          {
+            "name": "GABRIEL GARNEAU",
+            "position": "F",
+            "number": 27
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "ALEX LEMAY",
+            "position": "D",
+            "number": 5
+          },
+          {
+            "name": "GABRIEL GARNEAU",
+            "position": "F",
+            "number": 27
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "HUBERT CORRIVEAU",
+            "position": "F",
+            "number": 28
+          },
+          {
+            "name": "JUSTIN TANGUAY",
+            "position": "F",
+            "number": 40
+          }
+        ],
+        "goals": 1
+      }
+    ]
   },
   "128313": {
     "forward_lines": [
@@ -2557,7 +3789,84 @@
     ],
     "defense_pairs": [],
     "powerplay_units": [],
-    "penalty_kill_units": []
+    "penalty_kill_units": [],
+    "goal_scoring_pairs": [
+      {
+        "players": [
+          {
+            "name": "NATHAN GAGNON",
+            "position": "D",
+            "number": 26
+          },
+          {
+            "name": "ARTHUR BERGERON",
+            "position": "F",
+            "number": 27
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "EDOUARD BOUDREAULT",
+            "position": "D",
+            "number": 23
+          },
+          {
+            "name": "ARTHUR BERGERON",
+            "position": "F",
+            "number": 27
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "ARTHUR BERGERON",
+            "position": "F",
+            "number": 27
+          },
+          {
+            "name": "TRISTAN PIPON",
+            "position": "F",
+            "number": 13
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "TRISTAN PIPON",
+            "position": "F",
+            "number": 13
+          },
+          {
+            "name": "OLIVIER MÉNARD",
+            "position": "D",
+            "number": 97
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "ARTHUR BERGERON",
+            "position": "F",
+            "number": 27
+          },
+          {
+            "name": "VICTOR EMOND",
+            "position": "F",
+            "number": 19
+          }
+        ],
+        "goals": 1
+      }
+    ]
   },
   "128302": {
     "forward_lines": [
@@ -2716,7 +4025,84 @@
         "rank": "PP3"
       }
     ],
-    "penalty_kill_units": []
+    "penalty_kill_units": [],
+    "goal_scoring_pairs": [
+      {
+        "players": [
+          {
+            "name": "JUSTIN BERGERON",
+            "position": "F",
+            "number": 36
+          },
+          {
+            "name": "ALEXIS MAHEUX",
+            "position": "F",
+            "number": 21
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "EMILE GAUTHIER",
+            "position": "F",
+            "number": 41
+          },
+          {
+            "name": "FELIX BEAUCHESNE",
+            "position": "F",
+            "number": 22
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "FELIX BEAUCHESNE",
+            "position": "F",
+            "number": 22
+          },
+          {
+            "name": "ALEXIS MAHEUX",
+            "position": "F",
+            "number": 21
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "EMILE GAUTHIER",
+            "position": "F",
+            "number": 41
+          },
+          {
+            "name": "JAKOB DROLET",
+            "position": "D",
+            "number": 28
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "JACOB GAUTHIER",
+            "position": "D",
+            "number": 29
+          },
+          {
+            "name": "ALEXIS ROCHETTE",
+            "position": "F",
+            "number": 25
+          }
+        ],
+        "goals": 1
+      }
+    ]
   },
   "128305": {
     "forward_lines": [
@@ -2875,7 +4261,84 @@
         "rank": "PP3"
       }
     ],
-    "penalty_kill_units": []
+    "penalty_kill_units": [],
+    "goal_scoring_pairs": [
+      {
+        "players": [
+          {
+            "name": "GABRIEL GERVAIS",
+            "position": "F",
+            "number": 27
+          },
+          {
+            "name": "FELIX LAVIGNE",
+            "position": "F",
+            "number": 28
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "CHRISTOPHE BERNARD",
+            "position": "F",
+            "number": 32
+          },
+          {
+            "name": "ALEXIS SIMARD-BOISSONNEAULT",
+            "position": "F",
+            "number": 20
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "CHRISTOPHE BERNARD",
+            "position": "F",
+            "number": 32
+          },
+          {
+            "name": "FELIX LAVIGNE",
+            "position": "F",
+            "number": 28
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "LOIC GARNEAU",
+            "position": "F",
+            "number": 36
+          },
+          {
+            "name": "MILAN VUKOMANOVIC",
+            "position": "F",
+            "number": 26
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "NATHAN AUBRY",
+            "position": "F",
+            "number": 37
+          },
+          {
+            "name": "ÉDOUARD ST-PIERRE",
+            "position": "F",
+            "number": 39
+          }
+        ],
+        "goals": 1
+      }
+    ]
   },
   "128312": {
     "forward_lines": [
@@ -2972,7 +4435,84 @@
         "rank": "PP1"
       }
     ],
-    "penalty_kill_units": []
+    "penalty_kill_units": [],
+    "goal_scoring_pairs": [
+      {
+        "players": [
+          {
+            "name": "LOÏC GRENIER",
+            "position": "F",
+            "number": 22
+          },
+          {
+            "name": "ZAKARY LITALIEN",
+            "position": "F",
+            "number": 88
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "ELIOTT WHITTOM",
+            "position": "F",
+            "number": 98
+          },
+          {
+            "name": "LOGAN BLAIS",
+            "position": "F",
+            "number": 9
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "ZAKARY LITALIEN",
+            "position": "F",
+            "number": 88
+          },
+          {
+            "name": "MALIK MIOUSE",
+            "position": "F",
+            "number": 14
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "ZAKARY LITALIEN",
+            "position": "F",
+            "number": 88
+          },
+          {
+            "name": "LOGAN BLAIS",
+            "position": "F",
+            "number": 9
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "HUBERT MORNEAU",
+            "position": "F",
+            "number": 47
+          },
+          {
+            "name": "ELIOTT WHITTOM",
+            "position": "F",
+            "number": 98
+          }
+        ],
+        "goals": 1
+      }
+    ]
   },
   "128297": {
     "forward_lines": [
@@ -3126,7 +4666,84 @@
         "rank": "PP3"
       }
     ],
-    "penalty_kill_units": []
+    "penalty_kill_units": [],
+    "goal_scoring_pairs": [
+      {
+        "players": [
+          {
+            "name": "GABRIEL DESROCHERS",
+            "position": "F",
+            "number": 34
+          },
+          {
+            "name": "FLORENT LITALIEN",
+            "position": "F",
+            "number": 27
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "MARC RADOUX",
+            "position": "D",
+            "number": 6
+          },
+          {
+            "name": "XAVIER MONTMINY",
+            "position": "F",
+            "number": 36
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "GABRIEL DESROCHERS",
+            "position": "F",
+            "number": 34
+          },
+          {
+            "name": "XAVIER MONTMINY",
+            "position": "F",
+            "number": 36
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "MALCOM DUBÉ",
+            "position": "F",
+            "number": 40
+          },
+          {
+            "name": "LOUIS-THOMAS GUÉRARD",
+            "position": "D",
+            "number": 24
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "FREDERICK LEBEL",
+            "position": "D",
+            "number": 37
+          },
+          {
+            "name": "GABRIEL DESROCHERS",
+            "position": "F",
+            "number": 34
+          }
+        ],
+        "goals": 1
+      }
+    ]
   },
   "128314": {
     "forward_lines": [
@@ -3223,7 +4840,84 @@
         "rank": "PP1"
       }
     ],
-    "penalty_kill_units": []
+    "penalty_kill_units": [],
+    "goal_scoring_pairs": [
+      {
+        "players": [
+          {
+            "name": "LUDOVIC PAQUIN",
+            "position": "F",
+            "number": 17
+          },
+          {
+            "name": "NATHAN BOUTET",
+            "position": "F",
+            "number": 44
+          }
+        ],
+        "goals": 4
+      },
+      {
+        "players": [
+          {
+            "name": "NATHAN DESHAIES",
+            "position": "F",
+            "number": 22
+          },
+          {
+            "name": "LUDOVIC PAQUIN",
+            "position": "F",
+            "number": 17
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "AYDEN ALLARD",
+            "position": "D",
+            "number": 7
+          },
+          {
+            "name": "PIER-OLIVIER MIVILLE-BÉLANGER",
+            "position": "F",
+            "number": 6
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "MAXIM ETHIER",
+            "position": "F",
+            "number": 37
+          },
+          {
+            "name": "NATHAN SHEA",
+            "position": "D",
+            "number": 36
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "NATHAN DESHAIES",
+            "position": "F",
+            "number": 22
+          },
+          {
+            "name": "FÉLIX TIMMONS",
+            "position": "F",
+            "number": 11
+          }
+        ],
+        "goals": 1
+      }
+    ]
   },
   "118876": {
     "forward_lines": [
@@ -3351,6 +5045,83 @@
         "assists": 1,
         "points": 2,
         "rank": "PK2"
+      }
+    ],
+    "goal_scoring_pairs": [
+      {
+        "players": [
+          {
+            "name": "THOMAS PELLETIER",
+            "position": "F",
+            "number": 25
+          },
+          {
+            "name": "ARTHUR POULIOT",
+            "position": "D",
+            "number": 39
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
+            "name": "THÉO OUELLET",
+            "position": "D",
+            "number": 22
+          },
+          {
+            "name": "JAMES VEILLEUX",
+            "position": "D",
+            "number": 34
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "LIAM RICCI",
+            "position": "F",
+            "number": 26
+          },
+          {
+            "name": "NOÉ GIRARD",
+            "position": "D",
+            "number": 29
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "THOMAS PELLETIER",
+            "position": "F",
+            "number": 25
+          },
+          {
+            "name": "NATHAN CARRIER",
+            "position": "D",
+            "number": 27
+          }
+        ],
+        "goals": 1
+      },
+      {
+        "players": [
+          {
+            "name": "EMILE LEBLANC",
+            "position": "F",
+            "number": 38
+          },
+          {
+            "name": "THÉO OUELLET",
+            "position": "D",
+            "number": 22
+          }
+        ],
+        "goals": 1
       }
     ]
   }

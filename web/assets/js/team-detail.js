@@ -306,7 +306,7 @@ class TeamDetailPage {
 
         this.renderForwardLines(teamFormations.forward_lines || []);
         this.renderDefensePairs(teamFormations.defense_pairs || []);
-        this.renderPowerplayUnits(teamFormations.powerplay_units || []);
+        this.renderGoalScoringPairs(teamFormations.goal_scoring_pairs || []);
     }
 
     renderForwardLines(lines) {
@@ -390,38 +390,29 @@ class TeamDetailPage {
         });
     }
 
-    renderPowerplayUnits(units) {
-        const container = document.getElementById('pp-units');
+    renderGoalScoringPairs(pairs) {
+        const container = document.getElementById('goal-pairs');
 
-        if (units.length === 0) {
-            container.innerHTML = '<p class="no-data">Aucune unité détectée</p>';
+        if (pairs.length === 0) {
+            container.innerHTML = '<p class="no-data">Aucun duo détecté</p>';
             return;
         }
 
         container.innerHTML = '';
 
-        units.forEach((unit, index) => {
-            const unitCard = document.createElement('div');
-            unitCard.className = 'formation-card';
+        pairs.forEach((pair, index) => {
+            const pairCard = document.createElement('div');
+            pairCard.className = 'formation-card';
 
-            let playersHtml = unit.players.map(player =>
+            const playersHtml = pair.players.map(player =>
                 `<span class="player-name">${player.number ? '#' + player.number + ' ' : ''}${player.name} (${player.position})</span>`
-            ).join(' • ');
+            ).join(' ↔️ ');
 
-            // Add ? for missing players if unit has less than 5 players
-            const missingPlayers = 5 - unit.players.length;
-            if (missingPlayers > 0) {
-                const questionMarks = Array(missingPlayers).fill('<span class="unknown-player">?</span>').join(' • ');
-                playersHtml += ' • ' + questionMarks;
-            }
-
-            const unitLabel = unit.rank || `PP ${index + 1}`;
-
-            unitCard.innerHTML = `
+            pairCard.innerHTML = `
                 <div class="formation-header">
-                    <h5>${unitLabel}</h5>
+                    <h5>Duo ${index + 1}</h5>
                     <div class="formation-stats">
-                        <span class="formation-count">${unit.goals || 0} buts</span>
+                        <span class="formation-count">${pair.goals || 0} buts</span>
                     </div>
                 </div>
                 <div class="formation-players">
@@ -429,7 +420,7 @@ class TeamDetailPage {
                 </div>
             `;
 
-            container.appendChild(unitCard);
+            container.appendChild(pairCard);
         });
     }
 
