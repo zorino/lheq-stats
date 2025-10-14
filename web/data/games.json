@@ -261,6 +261,24 @@
     "status": "FINAL"
   },
   {
+    "id": 618114,
+    "date": "2025-10-12",
+    "home_team": "VERT & NOIR DE L'ÉCOLE FADETTE",
+    "away_team": "HARFANGS SHERBROOKE",
+    "home_score": 1,
+    "away_score": 4,
+    "status": "FINAL"
+  },
+  {
+    "id": 618124,
+    "date": "2025-10-12",
+    "home_team": "SEIGNEURS DES MILLE-ILES",
+    "away_team": "ROCKET JR LAVAL",
+    "home_score": 4,
+    "away_score": 3,
+    "status": "FINAL"
+  },
+  {
     "id": 618128,
     "date": "2025-09-20",
     "home_team": "GRENADIERS LAC ST-LOUIS",
@@ -276,6 +294,15 @@
     "away_team": "VERT & NOIR DE L'ÉCOLE FADETTE",
     "home_score": 8,
     "away_score": 0,
+    "status": "FINAL"
+  },
+  {
+    "id": 618130,
+    "date": "2025-10-12",
+    "home_team": "GRENADIERS LAC ST-LOUIS",
+    "away_team": "NOIR ET OR DE MORTAGNE",
+    "home_score": 1,
+    "away_score": 4,
     "status": "FINAL"
   },
   {
@@ -351,6 +378,15 @@
     "status": "FINAL"
   },
   {
+    "id": 618170,
+    "date": "2025-10-12",
+    "home_team": "ALBATROS",
+    "away_team": "CANAM BEAUCE-APPALACHES",
+    "home_score": 1,
+    "away_score": 2,
+    "status": "FINAL"
+  },
+  {
     "id": 618175,
     "date": "2025-09-20",
     "home_team": "BLIZZARD SSF",
@@ -369,6 +405,15 @@
     "status": "FINAL"
   },
   {
+    "id": 618186,
+    "date": "2025-10-12",
+    "home_team": "CASCADES ÉLITE",
+    "away_team": "BLIZZARD SSF",
+    "home_score": 3,
+    "away_score": 4,
+    "status": "FINAL"
+  },
+  {
     "id": 618193,
     "date": "2025-09-21",
     "home_team": "LIONS LAC ST-LOUIS",
@@ -378,12 +423,30 @@
     "status": "FINAL"
   },
   {
+    "id": 618194,
+    "date": "2025-10-12",
+    "home_team": "LIONS LAC ST-LOUIS",
+    "away_team": "INTREPIDE OUTAOUAIS",
+    "home_score": 8,
+    "away_score": 3,
+    "status": "FINAL"
+  },
+  {
     "id": 618200,
     "date": "2025-10-05",
     "home_team": "NATIONAL MONTRÉAL",
     "away_team": "INTREPIDE OUTAOUAIS",
     "home_score": 5,
     "away_score": 1,
+    "status": "FINAL"
+  },
+  {
+    "id": 618201,
+    "date": "2025-10-12",
+    "home_team": "NATIONAL MONTRÉAL",
+    "away_team": "DYNAMIQUES CCL",
+    "home_score": 5,
+    "away_score": 2,
     "status": "FINAL"
   },
   {
