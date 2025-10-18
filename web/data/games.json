@@ -180,6 +180,15 @@
     "status": "FINAL"
   },
   {
+    "id": 618072,
+    "date": "2025-10-12",
+    "home_team": "PIONNIERS LANAUDIÈRE",
+    "away_team": "CONQUÉRANTS BASSES-LAURENTIDES",
+    "home_score": 1,
+    "away_score": 6,
+    "status": "FINAL"
+  },
+  {
     "id": 618074,
     "date": "2025-10-11",
     "home_team": "SÉLECT DU NORD",
@@ -510,6 +519,15 @@
     "away_team": "COLLEGE FRANCAIS RIVE-SUD",
     "home_score": 12,
     "away_score": 1,
+    "status": "FINAL"
+  },
+  {
+    "id": 618255,
+    "date": "2025-10-17",
+    "home_team": "FORESTIERS A-T",
+    "away_team": "CONQUÉRANTS BASSES-LAURENTIDES",
+    "home_score": 8,
+    "away_score": 2,
     "status": "FINAL"
   },
   {

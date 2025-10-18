@@ -973,8 +973,29 @@
         "points": 6,
         "type": "pair",
         "raw_score": 6,
-        "dominance_score": 30.0,
+        "dominance_score": 22.2,
         "rank": "Line 1"
+      },
+      {
+        "players": [
+          {
+            "name": "HENRI GRAVEL",
+            "position": "F",
+            "number": 39
+          },
+          {
+            "name": "JAYDEN DUMARESQ",
+            "position": "F",
+            "number": 23
+          }
+        ],
+        "goals": 3,
+        "assists": 3,
+        "points": 6,
+        "type": "pair",
+        "raw_score": 6,
+        "dominance_score": 22.2,
+        "rank": "Line 2"
       },
       {
         "players": [
@@ -999,28 +1020,7 @@
         "points": 4,
         "type": "deduced_trio",
         "raw_score": 4,
-        "dominance_score": 20.0,
-        "rank": "Line 2"
-      },
-      {
-        "players": [
-          {
-            "name": "HENRI GRAVEL",
-            "position": "F",
-            "number": 39
-          },
-          {
-            "name": "JAYDEN DUMARESQ",
-            "position": "F",
-            "number": 23
-          }
-        ],
-        "goals": 2,
-        "assists": 2,
-        "points": 4,
-        "type": "pair",
-        "raw_score": 4,
-        "dominance_score": 20.0,
+        "dominance_score": 14.8,
         "rank": "Line 3"
       }
     ],
@@ -1035,7 +1035,7 @@
           {
             "name": "NATHAN BROUILLETTE",
             "position": "D",
-            "number": 29
+            "number": 32
           }
         ],
         "goals": 1,
@@ -1178,7 +1178,7 @@
             "number": 23
           }
         ],
-        "goals": 2
+        "goals": 3
       },
       {
         "players": [
@@ -1781,6 +1781,27 @@
       {
         "players": [
           {
+            "name": "TRISTAN LEVERT",
+            "position": "F",
+            "number": 32
+          },
+          {
+            "name": "SAMUEL LALONGÉ",
+            "position": "F",
+            "number": 28
+          }
+        ],
+        "goals": 5,
+        "assists": 5,
+        "points": 10,
+        "type": "pair",
+        "raw_score": 10,
+        "dominance_score": 17.2,
+        "rank": "Line 1"
+      },
+      {
+        "players": [
+          {
             "name": "FÉLIX LIPPÉ",
             "position": "F",
             "number": 34
@@ -1801,41 +1822,20 @@
         "points": 6,
         "type": "trio",
         "raw_score": 6,
-        "dominance_score": 14.3,
-        "rank": "Line 1"
-      },
-      {
-        "players": [
-          {
-            "name": "FÉLIX LIPPÉ",
-            "position": "F",
-            "number": 34
-          },
-          {
-            "name": "KEYDEN OLIN",
-            "position": "F",
-            "number": 37
-          }
-        ],
-        "goals": 3,
-        "assists": 3,
-        "points": 6,
-        "type": "pair",
-        "raw_score": 6,
-        "dominance_score": 14.3,
+        "dominance_score": 10.3,
         "rank": "Line 2"
       },
       {
         "players": [
           {
-            "name": "TRISTAN LEVERT",
+            "name": "CHARLES-RENE BERARD",
             "position": "F",
-            "number": 32
+            "number": 25
           },
           {
-            "name": "SAMUEL LALONGÉ",
+            "name": "FÉLIX DELAGE",
             "position": "F",
-            "number": 28
+            "number": 26
           }
         ],
         "goals": 3,
@@ -1843,12 +1843,38 @@
         "points": 6,
         "type": "pair",
         "raw_score": 6,
-        "dominance_score": 14.3,
+        "dominance_score": 10.3,
         "rank": "Line 3"
       }
     ],
     "defense_pairs": [],
     "powerplay_units": [
+      {
+        "players": [
+          {
+            "name": "MILAN DROUIN",
+            "position": "F",
+            "number": 27
+          },
+          {
+            "name": "SAMUEL LALONGÉ",
+            "position": "F",
+            "number": 28
+          },
+          {
+            "name": "TRISTAN LEVERT",
+            "position": "F",
+            "number": 32
+          }
+        ],
+        "goals": 1,
+        "assists": 2,
+        "points": 3,
+        "type": "powerplay",
+        "raw_score": 3,
+        "dominance_score": 30.0,
+        "rank": "PP1"
+      },
       {
         "players": [
           {
@@ -1872,8 +1898,8 @@
         "points": 3,
         "type": "powerplay",
         "raw_score": 3,
-        "dominance_score": 42.9,
-        "rank": "PP1"
+        "dominance_score": 30.0,
+        "rank": "PP2"
       },
       {
         "players": [
@@ -1893,28 +1919,7 @@
         "points": 2,
         "type": "powerplay",
         "raw_score": 2,
-        "dominance_score": 28.6,
-        "rank": "PP2"
-      },
-      {
-        "players": [
-          {
-            "name": "DILAN MORIN",
-            "position": "F",
-            "number": 36
-          },
-          {
-            "name": "MILAN DROUIN",
-            "position": "F",
-            "number": 27
-          }
-        ],
-        "goals": 1,
-        "assists": 1,
-        "points": 2,
-        "type": "powerplay",
-        "raw_score": 2,
-        "dominance_score": 28.6,
+        "dominance_score": 20.0,
         "rank": "PP3"
       }
     ],
@@ -1933,7 +1938,37 @@
             "number": 28
           }
         ],
-        "goals": 4
+        "goals": 6
+      },
+      {
+        "players": [
+          {
+            "name": "CHARLES-RENE BERARD",
+            "position": "F",
+            "number": 25
+          },
+          {
+            "name": "FÉLIX DELAGE",
+            "position": "F",
+            "number": 26
+          }
+        ],
+        "goals": 3
+      },
+      {
+        "players": [
+          {
+            "name": "ELLIOT SALVAIL",
+            "position": "D",
+            "number": 24
+          },
+          {
+            "name": "SAMUEL LALONGÉ",
+            "position": "F",
+            "number": 28
+          }
+        ],
+        "goals": 2
       },
       {
         "players": [
@@ -1961,36 +1996,6 @@
             "name": "TRISTAN LEVERT",
             "position": "F",
             "number": 32
-          }
-        ],
-        "goals": 1
-      },
-      {
-        "players": [
-          {
-            "name": "ELLIOT SALVAIL",
-            "position": "D",
-            "number": 24
-          },
-          {
-            "name": "SAMUEL LALONGÉ",
-            "position": "F",
-            "number": 28
-          }
-        ],
-        "goals": 1
-      },
-      {
-        "players": [
-          {
-            "name": "TOMMY JAY LATULIPPE",
-            "position": "F",
-            "number": 21
-          },
-          {
-            "name": "JAYSON PINEAULT",
-            "position": "F",
-            "number": 38
           }
         ],
         "goals": 1
@@ -2470,7 +2475,7 @@
         "points": 8,
         "type": "pair",
         "raw_score": 8,
-        "dominance_score": 34.8,
+        "dominance_score": 28.6,
         "rank": "Line 1"
       },
       {
@@ -2496,7 +2501,7 @@
         "points": 4,
         "type": "deduced_trio",
         "raw_score": 4,
-        "dominance_score": 17.4,
+        "dominance_score": 14.3,
         "rank": "Line 2"
       },
       {
@@ -2507,6 +2512,11 @@
             "number": 4
           },
           {
+            "name": "THÉO GODBOUT",
+            "position": "F",
+            "number": 21
+          },
+          {
             "name": "FÉLIX PAQUIN",
             "position": "F",
             "number": 9
@@ -2515,9 +2525,9 @@
         "goals": 1,
         "assists": 3,
         "points": 4,
-        "type": "pair",
+        "type": "deduced_trio",
         "raw_score": 4,
-        "dominance_score": 17.4,
+        "dominance_score": 14.3,
         "rank": "Line 3"
       }
     ],
@@ -2546,8 +2556,34 @@
         "points": 3,
         "type": "powerplay",
         "raw_score": 3,
-        "dominance_score": 50.0,
+        "dominance_score": 33.3,
         "rank": "PP1"
+      },
+      {
+        "players": [
+          {
+            "name": "FÉLIX PAQUIN",
+            "position": "F",
+            "number": 9
+          },
+          {
+            "name": "SAMUEL GAGNON",
+            "position": "F",
+            "number": 8
+          },
+          {
+            "name": "THÉO GODBOUT",
+            "position": "F",
+            "number": 21
+          }
+        ],
+        "goals": 1,
+        "assists": 2,
+        "points": 3,
+        "type": "powerplay",
+        "raw_score": 3,
+        "dominance_score": 33.3,
+        "rank": "PP2"
       },
       {
         "players": [
@@ -2572,11 +2608,30 @@
         "points": 3,
         "type": "powerplay",
         "raw_score": 3,
-        "dominance_score": 50.0,
-        "rank": "PP2"
+        "dominance_score": 33.3,
+        "rank": "PP3"
       }
     ],
-    "penalty_kill_units": [],
+    "penalty_kill_units": [
+      {
+        "players": [
+          {
+            "name": "JACKSON-LEE GENEST",
+            "position": "F",
+            "number": 12
+          },
+          {
+            "name": "FÉLIX PAQUIN",
+            "position": "F",
+            "number": 9
+          }
+        ],
+        "goals": 1,
+        "assists": 1,
+        "points": 2,
+        "rank": "PK1"
+      }
+    ],
     "goal_scoring_pairs": [
       {
         "players": [
@@ -2611,6 +2666,21 @@
       {
         "players": [
           {
+            "name": "THÉO GODBOUT",
+            "position": "F",
+            "number": 21
+          },
+          {
+            "name": "FÉLIX PAQUIN",
+            "position": "F",
+            "number": 9
+          }
+        ],
+        "goals": 2
+      },
+      {
+        "players": [
+          {
             "name": "JACOB CRÉPEAULT",
             "position": "F",
             "number": 7
@@ -2634,21 +2704,6 @@
             "name": "MADOX LACHAINE",
             "position": "F",
             "number": 22
-          }
-        ],
-        "goals": 1
-      },
-      {
-        "players": [
-          {
-            "name": "CHARLES D'ASTOUS",
-            "position": "D",
-            "number": 10
-          },
-          {
-            "name": "GABRIEL RONDEAU",
-            "position": "F",
-            "number": 4
           }
         ],
         "goals": 1
